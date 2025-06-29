@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажёр публичных выступлений</title>
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  rel="stylesheet">
+    <style>
+        .speech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-4 md:py-8">
+        <!-- Шапка -->
+        <header class="mb-6 md:mb-12 text-center">
+            <h1 class="text-2xl md:text-4xl font-bold text-white mb-2">Тренажёр ораторского мастерства</h1>
+            <p class="text-base md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю упражнения будут меняться</p>
+            <p class="text-sm md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю ты будешь расти</p>
+        </header>
+
+        <!-- Основное содержимое -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            <!-- Колонка 1: Список упражнений -->
+            <div class="md:col-span-2 space-y-6">
+                <div class="bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold text-white">Твои упражнения</h2>
+                    </div>
+                    <!-- Список упражнений -->
+                    <div id="exercisesList" class="space-y-4 overflow-y-auto max-h-[70vh]"></div>
+                </div>
+            </div>
+
+            <!-- Колонка 2: Таймер -->
+            <div class="space-y-6">
+                <!-- Таймер -->
+                <div class="bg-gray-800 rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-semibold text-white mb-4">Готов выступать?</h2>
+                    <div class="flex flex-col items-center">
+                        <div class="relative mb-6">
+                            <!-- SVG таймера -->
+                            <svg id="timerCircle" class="w-64 h-64 -rotate-90">
+                                <circle cx="50%" cy="50%" r="80" fill="none" stroke="#2D3748" stroke-width="12"></circle>
+                                <circle id="timerProgress" cx="50%" cy="50%" r="80" fill="none" stroke="#4299E1" stroke-width="12" stroke-dasharray="502.4" stroke-dashoffset="0"></circle>
+                            </svg>
+                            <div id="timerDisplay" class="absolute inset-0 flex items-center justify-center flex-col">
+                                <div class="text-4xl md:text-5xl font-bold text-white mb-1">03:00</div>
+                                <div class="text-sm text-white">осталось</div>
+                            </div>
+                        </div>
+
+                        <!-- Кнопки управления -->
+                        <div class="flex space-x-2 w-full justify-center">
+                            <button id="startTimerBtn" onclick="startExerciseAndTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
+                                <i class="fas fa-play mr-1"></i> Старт
+                            </button>
+                            <button id="pauseTimerBtn" onclick="pauseTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm hidden flex items-center justify-center">
+                                <i class="fas fa-pause mr-1"></i> Пауза
+                            </button>
+                            <button onclick="resetTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
+                                <i class="fas fa-redo mr-1"></i> Сброс
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок "Сейчас выступаете" -->
+                <div id="currentExercise" class="bg-gray-800 rounded-xl shadow-md p-6 hidden">
+                    <h2 class="text-2xl font-semibold text-white mb-2">Время пошло:</h2>
+                    <h3 id="currentExerciseTitle" class="text-xl font-medium text-white mb-2"></h3>
+                    <p id="currentExerciseDesc" class="text-white mb-3"></p>
+                    <div id="currentExerciseDiff" class="flex items-center text-sm"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Футер -->
+       <!-- Футер -->
+<footer class="mt-12 text-center text-gray-400 pb-6">
+    <p>Если тебе помог тренажёр, ты можешь поддержать проект:</p>
+    <a href="https://yoomoney.ru/to/4100116092080366"  target="_blank" class="text-blue-400 underline mt-2 inline-block">
+        <i class="fab fa-yandex-international mr-1"></i> Задонатить
+    </a>
+    <p class="text-gray-400 mt-2">Если что-то сломалось — скринь и пиши сюда:</p>
+    <a href="https://t.me/urealosinec"  target="_blank" class="text-blue-400 underline inline-block mt-1">
+        <i class="fab fa-telegram-plane mr-1"></i> @urealosinec
+    </a>
+</footer>
+    </div>
+
+    <script>
+        // Список упражнений
+        let exercises = [
+            {
+                id: 1,
+                title: "Видимый предмет",
+                shortDescription: "Называй вслух всё, что видишь.",
+                description: "Пока идет время, называй ВСЛУХ все предметы, которые видишь. Постарайся говорить без пауз, не повторяйся. Это упражнение развивает умение подбирать быстро находить нужные слова.",
+                difficulty: 1,
+                time: 3,
+                completed: false
+            },
+            {
+                id: 2,
+                title: "Цепочка историй",
+                shortDescription: "Расскажи о случайном предмете.",
+                description: "Выбери предмет, который первым попался на глаза. Рассказывай о нем всё, что знаешь... Факты, истории, ассоциации. Главное — говорить без пауз.",
+                difficulty: 1,
+                time: 2,
+                completed: false
+            },
+            {
+                id: 3,
+                title: "Пой",
+                shortDescription: "Пой песню вслух под музыку.",
+                description: "Одень наушники, включи любимый трек... и пой. Вслух. Не стесняйся. Лучшая история та, которая звучит.",
+                difficulty: 1,
+                time: 5,
+                completed: false
+            }
+        ];
+
+        let timerInterval;
+        let timeLeft = 180; // 3 минуты по умолчанию
+        let isTimerRunning = false;
+        let currentExerciseId = null;
+
+        // DOM элементы
+        const exercisesList = document.getElementById('exercisesList');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerProgress = document.getElementById('timerProgress');
+        const startTimerBtn = document.getElementById('startTimerBtn');
+        const pauseTimerBtn = document.getElementById('pauseTimerBtn');
+        const currentExerciseDiv = document.getElementById('currentExercise');
+        const currentExerciseTitle = document.getElementById('currentExerciseTitle');
+        const currentExerciseDesc = document.getElementById('currentExerciseDesc');
+        const currentExerciseDiff = document.getElementById('currentExerciseDiff');
+
+        // Метка уровня сложности
+        function getDifficultyLabel(difficulty) {
+            let label = '';
+            switch (difficulty) {
+                case 1:
+                    label = "Не бейте меня...";
+                    break;
+                case 2:
+                    label = "Говори или умри..";
+                    break;
+                case 3:
+                    label = "Voice of God";
+                    break;
+                default:
+                    label = "Неизвестно";
+            }
+            return `<span class="inline-block border border-blue-500 text-white text-xs px-2 py-1 rounded">${label}</span>`;
+        }
+
+        // Рисует карточки упражнений
+        function renderExercises() {
+            exercisesList.innerHTML = '';
+            exercises.forEach(exercise => {
+                const difficultyLabel = getDifficultyLabel(exercise.difficulty);
+                const exerciseCard = document.createElement('div');
+                exerciseCard.className = 'speech-card border-2 border-blue-500 rounded-lg p-4 bg-gray-700 transition cursor-pointer hover:shadow-md';
+                exerciseCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-lg text-white">"${exercise.title}"</h3>
+                            <p class="text-white text-sm mt-1">${exercise.shortDescription}</p>
+                        </div>
+                        <span class="text-white whitespace-nowrap">${exercise.time} мин</span>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center">
+                        <div>
+                            <span class="text-white mr-2">Сложность:</span>
+                            ${difficultyLabel}
+                        </div>
+                        <div>
+                            <button onclick="startExercise(${exercise.id}, event)" class="text-xs bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded-md">
+                                Начать
+                            </button>
+                        </div>
+                    </div>
+                `;
+                exercisesList.appendChild(exerciseCard);
+            });
+        }
+
+        // Запуск упражнения
+        function startExercise(id, event) {
+            if (event) event.stopPropagation();
+            const exercise = exercises.find(ex => ex.id === id);
+            if (!exercise) return;
+
+            currentExerciseId = id;
+            timeLeft = exercise.time * 60;
+            updateTimerDisplay();
+
+            // Показываем полное описание упражнения
+            currentExerciseTitle.textContent = `"${exercise.title}"`;
+            currentExerciseDesc.textContent = exercise.description;
+
+            // Отображаем уровень сложности с пометкой
+            currentExerciseDiff.innerHTML = `
+                <span class="text-white mr-2">Сложность:</span>
+                ${getDifficultyLabel(exercise.difficulty)}
+            `;
+
+            currentExerciseDiv.classList.remove('hidden');
+
+            // Скроллим к таймеру
+            document.getElementById('timerCircle').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Таймер
+        function startExerciseAndTimer() {
+            if (!currentExerciseId) {
+                alert("Пожалуйста, выберите упражнение");
+                return;
+            }
+            startTimer();
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            if (timeLeft <= 0) resetTimer();
+            isTimerRunning = true;
+            startTimerBtn.classList.add('hidden');
+            pauseTimerBtn.classList.remove('hidden');
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    startTimerBtn.classList.remove('hidden');
+                    pauseTimerBtn.classList.add('hidden');
+
+                    if (currentExerciseId) {
+                        const exercise = exercises.find(ex => ex.id === currentExerciseId);
+                        if (exercise) {
+                            exercise.completed = true;
+                            renderExercises();
+                        }
+                    }
+
+                    playCompletionSound();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            startTimerBtn.classList.remove('hidden');
+            pauseTimerBtn.classList.add('hidden');
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            if (currentExerciseId) {
+                const exercise = exercises.find(ex => ex.id === currentExerciseId);
+                timeLeft = exercise.time * 60;
+            } else {
+                timeLeft = 180;
+            }
+            updateTimerDisplay();
+            startTimerBtn.classList.remove('hidden');
+            pauseTimerBtn.classList.add('hidden');
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.querySelector('div:first-child').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            const totalSeconds = currentExerciseId ? exercises.find(ex => ex.id === currentExerciseId)?.time * 60 : 180;
+            const circumference = 2 * Math.PI * 80;
+            const percent = (timeLeft / totalSeconds) * circumference;
+            timerProgress.style.strokeDasharray = circumference;
+            timerProgress.style.strokeDashoffset = percent;
+        }
+
+        function playCompletionSound() {
+            const audio = new Audio('https://assets.mixkit.co/sounds/download/mixkit-software-interface-file-operation-completed-2120.wav'); 
+            audio.play().catch(e => console.log('❌ Не удалось воспроизвести звук:', e));
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExercises();
+            updateTimerDisplay();
+        });
+
+        window.startTimer = startTimer;
+    </script>
+</body>
+</html>
