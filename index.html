@@ -11,24 +11,43 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
+        .language-switcher {
+            transition: all 0.3s ease;
+        }
+        .language-switcher.active {
+            background-color: #4299E1;
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-gray-900 min-h-screen">
     <div class="container mx-auto px-4 py-4 md:py-8">
         <!-- Шапка -->
         <header class="mb-6 md:mb-12 text-center">
-            <h1 class="text-2xl md:text-4xl font-bold text-white mb-2">Тренажёр ораторского мастерства</h1>
-            <p class="text-base md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю упражнения будут меняться</p>
-            <p class="text-sm md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю ты будешь расти</p>
+            <h1 id="mainTitle" class="text-2xl md:text-4xl font-bold text-white mb-2">Тренажёр ораторского мастерства</h1>
+            <p id="mainSubtitle1" class="text-base md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю упражнения будут меняться</p>
+            <p id="mainSubtitle2" class="text-sm md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю ты будешь расти</p>
         </header>
 
         <!-- Основное содержимое -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             <!-- Колонка 1: Список упражнений -->
             <div class="md:col-span-2 space-y-6">
+                <!-- Переключатель языков -->
+                <div class="flex justify-end mb-4">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button id="langRu" onclick="changeLanguage('ru')" class="language-switcher active px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-500 text-white">
+                            RU
+                        </button>
+                        <button id="langEn" onclick="changeLanguage('en')" class="language-switcher px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-700 text-gray-300 hover:bg-gray-600">
+                            EN
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-semibold text-white">Твои упражнения</h2>
+                        <h2 id="exercisesTitle" class="text-2xl font-semibold text-white">Твои упражнения</h2>
                     </div>
                     <!-- Список упражнений -->
                     <div id="exercisesList" class="space-y-4 overflow-y-auto max-h-[70vh]"></div>
@@ -39,7 +58,7 @@
             <div class="space-y-6">
                 <!-- Таймер -->
                 <div class="bg-gray-800 rounded-xl shadow-md p-6">
-                    <h2 class="text-2xl font-semibold text-white mb-4">Готов выступать?</h2>
+                    <h2 id="timerTitle" class="text-2xl font-semibold text-white mb-4">Готов выступать?</h2>
                     <div class="flex flex-col items-center">
                         <div class="relative mb-6">
                             <!-- SVG таймера -->
@@ -49,20 +68,20 @@
                             </svg>
                             <div id="timerDisplay" class="absolute inset-0 flex items-center justify-center flex-col">
                                 <div class="text-4xl md:text-5xl font-bold text-white mb-1">03:00</div>
-                                <div class="text-sm text-white">осталось</div>
+                                <div id="timeLeftText" class="text-sm text-white">осталось</div>
                             </div>
                         </div>
 
                         <!-- Кнопки управления -->
                         <div class="flex space-x-2 w-full justify-center">
                             <button id="startTimerBtn" onclick="startExerciseAndTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
-                                <i class="fas fa-play mr-1"></i> Старт
+                                <i class="fas fa-play mr-1"></i> <span id="startBtnText">Старт</span>
                             </button>
                             <button id="pauseTimerBtn" onclick="pauseTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm hidden flex items-center justify-center">
-                                <i class="fas fa-pause mr-1"></i> Пауза
+                                <i class="fas fa-pause mr-1"></i> <span id="pauseBtnText">Пауза</span>
                             </button>
                             <button onclick="resetTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
-                                <i class="fas fa-redo mr-1"></i> Сброс
+                                <i class="fas fa-redo mr-1"></i> <span id="resetBtnText">Сброс</span>
                             </button>
                         </div>
                     </div>
@@ -70,60 +89,133 @@
 
                 <!-- Блок "Сейчас выступаете" -->
                 <div id="currentExercise" class="bg-gray-800 rounded-xl shadow-md p-6 hidden">
-                    <h2 class="text-2xl font-semibold text-white mb-2">Время пошло:</h2>
+                    <h2 id="currentExerciseHeader" class="text-2xl font-semibold text-white mb-2">Время пошло:</h2>
                     <h3 id="currentExerciseTitle" class="text-xl font-medium text-white mb-2"></h3>
                     <p id="currentExerciseDesc" class="text-white mb-3"></p>
-                    <div id="currentExerciseDiff" class="flex items-center text-sm"></div>
+                    <div id="currentExerciseDiff" class="flex items-center text-sm">
+                        <span id="difficultyText" class="text-white mr-2">Сложность:</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Футер -->
-       <!-- Футер -->
-<footer class="mt-12 text-center text-gray-400 pb-6">
-    <p>Если тебе помог тренажёр, ты можешь поддержать проект:</p>
-    <a href="https://yoomoney.ru/to/4100116092080366"  target="_blank" class="text-blue-400 underline mt-2 inline-block">
-        <i class="fab fa-yandex-international mr-1"></i> Задонатить
-    </a>
-    <p class="text-gray-400 mt-2">Если что-то сломалось — скринь и пиши сюда:</p>
-    <a href="https://t.me/urealosinec"  target="_blank" class="text-blue-400 underline inline-block mt-1">
-        <i class="fab fa-telegram-plane mr-1"></i> @urealosinec
-    </a>
-</footer>
+        <footer class="mt-12 text-center text-gray-400 pb-6">
+            <p id="footerSupportText">Если тебе помог тренажёр, ты можешь поддержать проект:</p>
+            <a href="https://yoomoney.ru/to/4100116092080366" target="_blank" class="text-blue-400 underline mt-2 inline-block">
+                <i class="fab fa-yandex-international mr-1"></i> <span id="donateText">Задонатить</span>
+            </a>
+            <p id="footerContactText" class="text-gray-400 mt-2">Если что-то сломалось — скринь и пиши сюда:</p>
+            <a href="https://t.me/urealosinec" target="_blank" class="text-blue-400 underline inline-block mt-1">
+                <i class="fab fa-telegram-plane mr-1"></i> @urealosinec
+            </a>
+        </footer>
     </div>
 
     <script>
-        // Список упражнений
+        // Локализация
+        const translations = {
+            ru: {
+                mainTitle: "Тренажёр ораторского мастерства",
+                mainSubtitle1: "Каждую неделю упражнения будут меняться",
+                mainSubtitle2: "Каждую неделю ты будешь расти",
+                exercisesTitle: "Твои упражнения",
+                timerTitle: "Готов выступать?",
+                timeLeftText: "осталось",
+                startBtnText: "Старт",
+                pauseBtnText: "Пауза",
+                resetBtnText: "Сброс",
+                currentExerciseHeader: "Время пошло:",
+                difficultyText: "Сложность:",
+                footerSupportText: "Если тебе помог тренажёр, ты можешь поддержать проект:",
+                donateText: "Задонатить",
+                footerContactText: "Если что-то сломалось — скринь и пиши сюда:",
+                difficultyLabels: {
+                    1: "Не бейте меня...",
+                    2: "Говори или умри..",
+                    3: "Voice of God"
+                },
+                exercises: [
+                    {
+                        title: "Повелитель тишины..",
+                        shortDescription: "Возьми любой текст. Каждая запятая - 3 сек пауза.",
+                        description: "Возьми любой текст и начни читать его вслух. На каждой запятой делай 3-х секундную паузу."
+                    },
+                    {
+                        title: "Метроном",
+                        shortDescription: "Используя метроном, читай текст. 1 тик - 1 слово",
+                        description: "Открой в интернете «метроном». Поставь скорость 60. С каждыми тиком ты читаешь по слову. 1 тик - 1 слово."
+                    },
+                    {
+                        title: "Четкость звука",
+                        shortDescription: "Сделай вдох животом. На выдохе произноси «Сссссссс», пока не кончится воздух.",
+                        description: "Сделай глубокий вдох животом. На выдохе произноми звук «Ссссссс», пока не закончится возвдух.Выдыхай с силой."
+                    }
+                ]
+            },
+            en: {
+                mainTitle: "Public Speaking Trainer",
+                mainSubtitle1: "Exercises will change every week",
+                mainSubtitle2: "Every week you will grow",
+                exercisesTitle: "Your Exercises",
+                timerTitle: "Ready to perform?",
+                timeLeftText: "left",
+                startBtnText: "Start",
+                pauseBtnText: "Pause",
+                resetBtnText: "Reset",
+                currentExerciseHeader: "Time is running:",
+                difficultyText: "Difficulty:",
+                footerSupportText: "If the trainer helped you, you can support the project:",
+                donateText: "Donate",
+                footerContactText: "If something is broken — screenshot and write here:",
+                difficultyLabels: {
+                    1: "Don't hit me...",
+                    2: "Speak or die..",
+                    3: "Voice of God"
+                },
+                exercises: [
+                    {
+                        title: "Master of Silence",
+                        shortDescription: "Take any text. Each comma - 3 sec pause.",
+                        description: "Take any text and start reading it aloud. At each comma, take a 3-second pause."
+                    },
+                    {
+                        title: "Metronome",
+                        shortDescription: "Using a metronome, read the text. 1 tick - 1 word",
+                        description: "Open a 'metronome' online. Set speed to 60. With each tick you read one word. 1 tick - 1 word."
+                    },
+                    {
+                        title: "Sound Clarity",
+                        shortDescription: "Take a belly breath. On exhale say 'Sssssss' until air runs out.",
+                        description: "Take a deep belly breath. On exhale, make the sound 'Ssssss' until you run out of air. Exhale with force."
+                    }
+                ]
+            }
+        };
+
+        // Список упражнений (с данными, не зависящими от языка)
         let exercises = [
             {
                 id: 1,
-                title: "Повелитель тишины..",
-                shortDescription: "Возьми любой текст. Каждая запятая - 3 сек пауза.",
-                description: "Возьми любой текст и начни читать его вслух. На каждой запятой делай 3-х секундную паузу.",
                 difficulty: 1,
                 time: 3,
                 completed: false
             },
             {
                 id: 2,
-                title: "Метроном",
-                shortDescription: "Используя метроном, читай текст. 1 тик - 1 слово",
-                description: "Открой в интернете «метроном». Поставь скорость 60. С каждыми тиком ты читаешь по слову. 1 тик - 1 слово.",
                 difficulty: 1,
                 time: 2,
                 completed: false
             },
             {
                 id: 3,
-                title: "Четкость звука",
-                shortDescription: "Сделай вдох животом. На выдохе произноси «Сссссссс», пока не кончится воздух.",
-                description: "Сделай глубокий вдох животом. На выдохе произноми звук «Ссссссс», пока не закончится возвдух.Выдыхай с силой.",
                 difficulty: 1,
                 time: 5,
                 completed: false
             }
         ];
 
+        let currentLanguage = 'ru';
         let timerInterval;
         let timeLeft = 180; // 3 минуты по умолчанию
         let isTimerRunning = false;
@@ -140,48 +232,88 @@
         const currentExerciseDesc = document.getElementById('currentExerciseDesc');
         const currentExerciseDiff = document.getElementById('currentExerciseDiff');
 
+        // Смена языка
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Обновляем активную кнопку языка
+            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+            document.getElementById('langRu').classList.toggle('bg-blue-500', lang === 'ru');
+            document.getElementById('langRu').classList.toggle('bg-gray-700', lang !== 'ru');
+            document.getElementById('langRu').classList.toggle('text-white', lang === 'ru');
+            document.getElementById('langRu').classList.toggle('text-gray-300', lang !== 'ru');
+            
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langEn').classList.toggle('bg-blue-500', lang === 'en');
+            document.getElementById('langEn').classList.toggle('bg-gray-700', lang !== 'en');
+            document.getElementById('langEn').classList.toggle('text-white', lang === 'en');
+            document.getElementById('langEn').classList.toggle('text-gray-300', lang !== 'en');
+            
+            // Обновляем текст на странице
+            const t = translations[lang];
+            
+            // Заголовки
+            document.getElementById('mainTitle').textContent = t.mainTitle;
+            document.getElementById('mainSubtitle1').textContent = t.mainSubtitle1;
+            document.getElementById('mainSubtitle2').textContent = t.mainSubtitle2;
+            document.getElementById('exercisesTitle').textContent = t.exercisesTitle;
+            document.getElementById('timerTitle').textContent = t.timerTitle;
+            document.getElementById('timeLeftText').textContent = t.timeLeftText;
+            document.getElementById('startBtnText').textContent = t.startBtnText;
+            document.getElementById('pauseBtnText').textContent = t.pauseBtnText;
+            document.getElementById('resetBtnText').textContent = t.resetBtnText;
+            document.getElementById('currentExerciseHeader').textContent = t.currentExerciseHeader;
+            document.getElementById('difficultyText').textContent = t.difficultyText;
+            document.getElementById('footerSupportText').textContent = t.footerSupportText;
+            document.getElementById('donateText').textContent = t.donateText;
+            document.getElementById('footerContactText').textContent = t.footerContactText;
+            
+            // Перерисовываем упражнения
+            renderExercises();
+            
+            // Обновляем текущее упражнение, если оно активно
+            if (currentExerciseId) {
+                const exercise = exercises.find(ex => ex.id === currentExerciseId);
+                if (exercise) {
+                    currentExerciseTitle.textContent = `"${t.exercises[exercise.id-1].title}"`;
+                    currentExerciseDesc.textContent = t.exercises[exercise.id-1].description;
+                }
+            }
+        }
+
         // Метка уровня сложности
         function getDifficultyLabel(difficulty) {
-            let label = '';
-            switch (difficulty) {
-                case 1:
-                    label = "Не бейте меня...";
-                    break;
-                case 2:
-                    label = "Говори или умри..";
-                    break;
-                case 3:
-                    label = "Voice of God";
-                    break;
-                default:
-                    label = "Неизвестно";
-            }
+            const label = translations[currentLanguage].difficultyLabels[difficulty] || "Unknown";
             return `<span class="inline-block border border-blue-500 text-white text-xs px-2 py-1 rounded">${label}</span>`;
         }
 
         // Рисует карточки упражнений
         function renderExercises() {
             exercisesList.innerHTML = '';
-            exercises.forEach(exercise => {
+            const t = translations[currentLanguage];
+            
+            exercises.forEach((exercise, index) => {
                 const difficultyLabel = getDifficultyLabel(exercise.difficulty);
+                const exerciseData = t.exercises[index];
+                
                 const exerciseCard = document.createElement('div');
                 exerciseCard.className = 'speech-card border-2 border-blue-500 rounded-lg p-4 bg-gray-700 transition cursor-pointer hover:shadow-md';
                 exerciseCard.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
-                            <h3 class="font-semibold text-lg text-white">"${exercise.title}"</h3>
-                            <p class="text-white text-sm mt-1">${exercise.shortDescription}</p>
+                            <h3 class="font-semibold text-lg text-white">"${exerciseData.title}"</h3>
+                            <p class="text-white text-sm mt-1">${exerciseData.shortDescription}</p>
                         </div>
-                        <span class="text-white whitespace-nowrap">${exercise.time} мин</span>
+                        <span class="text-white whitespace-nowrap">${exercise.time} ${currentLanguage === 'ru' ? 'мин' : 'min'}</span>
                     </div>
                     <div class="mt-3 flex justify-between items-center">
                         <div>
-                            <span class="text-white mr-2">Сложность:</span>
+                            <span class="text-white mr-2">${t.difficultyText}</span>
                             ${difficultyLabel}
                         </div>
                         <div>
                             <button onclick="startExercise(${exercise.id}, event)" class="text-xs bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded-md">
-                                Начать
+                                ${currentLanguage === 'ru' ? 'Начать' : 'Start'}
                             </button>
                         </div>
                     </div>
@@ -201,12 +333,15 @@
             updateTimerDisplay();
 
             // Показываем полное описание упражнения
-            currentExerciseTitle.textContent = `"${exercise.title}"`;
-            currentExerciseDesc.textContent = exercise.description;
+            const t = translations[currentLanguage];
+            const exerciseData = t.exercises[id-1];
+            
+            currentExerciseTitle.textContent = `"${exerciseData.title}"`;
+            currentExerciseDesc.textContent = exerciseData.description;
 
             // Отображаем уровень сложности с пометкой
             currentExerciseDiff.innerHTML = `
-                <span class="text-white mr-2">Сложность:</span>
+                <span class="text-white mr-2">${t.difficultyText}</span>
                 ${getDifficultyLabel(exercise.difficulty)}
             `;
 
@@ -219,7 +354,7 @@
         // Таймер
         function startExerciseAndTimer() {
             if (!currentExerciseId) {
-                alert("Пожалуйста, выберите упражнение");
+                alert(currentLanguage === 'ru' ? "Пожалуйста, выберите упражнение" : "Please select an exercise");
                 return;
             }
             startTimer();
@@ -297,6 +432,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderExercises();
             updateTimerDisplay();
+            // Устанавливаем русский язык по умолчанию
+            changeLanguage('ru');
         });
 
         window.startTimer = startTimer;
