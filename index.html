@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тринажёр публичных выступлений</title>
+    <title>Тренажёр ораторского мастерства</title>
     <script src="https://cdn.tailwindcss.com"></script> 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         .speech-card:hover {
             transform: translateY(-5px);
@@ -18,36 +18,69 @@
             background-color: #4299E1;
             color: white;
         }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #1F2937;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 500px;
+            width: 90%;
+            color: white;
+        }
+        .blur {
+            filter: blur(5px);
+            pointer-events: none;
+            user-select: none;
+        }
+        .days-counter {
+            background-color: #4299E1;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 0.5rem auto;
+        }
     </style>
 </head>
 <body class="bg-gray-900 min-h-screen">
-    <div class="container mx-auto px-4 py-4 md:py-8">
+    <div id="appContainer" class="container mx-auto px-4 py-4 md:py-8">
         <!-- Шапка -->
         <header class="mb-6 md:mb-12 text-center">
-            <h1 id="mainTitle" class="text-2xl md:text-4xl font-bold text-white mb-2">Тренажёр ораторского мастерства</h1>
-            <p id="mainSubtitle1" class="text-base md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю упражнения будут меняться</p>
-            <p id="mainSubtitle2" class="text-sm md:text-lg text-white max-w-2xl mx-auto px-2">Каждую неделю ты будешь расти</p>
+            <h1 class="text-2xl md:text-4xl font-bold text-white mb-2">Тренажёр ораторского мастерства</h1>
+            
+            <!-- Счётчик дней подписки -->
+            <div id="daysCounter" class="days-counter hidden">
+                <span id="daysLeftText">Дней пробного периода: 7</span>
+            </div>
+            
+            <p class="text-base md:text-lg text-white max-w-2xl mx-auto px-2 mt-2">
+                Каждую неделю упражнения будут меняться
+            </p>
+            <p class="text-sm md:text-lg text-white max-w-2xl mx-auto px-2">
+                Каждую неделю ты будешь расти
+            </p>
         </header>
 
         <!-- Основное содержимое -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             <!-- Колонка 1: Список упражнений -->
             <div class="md:col-span-2 space-y-6">
-                <!-- Переключатель языков -->
-                <div class="flex justify-end mb-4">
-                    <div class="inline-flex rounded-md shadow-sm">
-                        <button id="langRu" onclick="changeLanguage('ru')" class="language-switcher active px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-500 text-white">
-                            RU
-                        </button>
-                        <button id="langEn" onclick="changeLanguage('en')" class="language-switcher px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-700 text-gray-300 hover:bg-gray-600">
-                            EN
-                        </button>
-                    </div>
-                </div>
-                
                 <div class="bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 id="exercisesTitle" class="text-2xl font-semibold text-white">Твои упражнения</h2>
+                        <h2 class="text-2xl font-semibold text-white">Твои упражнения</h2>
                     </div>
                     <!-- Список упражнений -->
                     <div id="exercisesList" class="space-y-4 overflow-y-auto max-h-[70vh]"></div>
@@ -58,7 +91,7 @@
             <div class="space-y-6">
                 <!-- Таймер -->
                 <div class="bg-gray-800 rounded-xl shadow-md p-6">
-                    <h2 id="timerTitle" class="text-2xl font-semibold text-white mb-4">Готов выступать?</h2>
+                    <h2 class="text-2xl font-semibold text-white mb-4">Готов выступать?</h2>
                     <div class="flex flex-col items-center">
                         <div class="relative mb-6">
                             <!-- SVG таймера -->
@@ -68,20 +101,20 @@
                             </svg>
                             <div id="timerDisplay" class="absolute inset-0 flex items-center justify-center flex-col">
                                 <div class="text-4xl md:text-5xl font-bold text-white mb-1">03:00</div>
-                                <div id="timeLeftText" class="text-sm text-white">осталось</div>
+                                <div class="text-sm text-white">осталось</div>
                             </div>
                         </div>
 
                         <!-- Кнопки управления -->
                         <div class="flex space-x-2 w-full justify-center">
                             <button id="startTimerBtn" onclick="startExerciseAndTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
-                                <i class="fas fa-play mr-1"></i> <span id="startBtnText">Старт</span>
+                                <i class="fas fa-play mr-1"></i> <span>Старт</span>
                             </button>
                             <button id="pauseTimerBtn" onclick="pauseTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm hidden flex items-center justify-center">
-                                <i class="fas fa-pause mr-1"></i> <span id="pauseBtnText">Пауза</span>
+                                <i class="fas fa-pause mr-1"></i> <span>Пауза</span>
                             </button>
                             <button onclick="resetTimer()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded text-sm flex items-center justify-center">
-                                <i class="fas fa-redo mr-1"></i> <span id="resetBtnText">Сброс</span>
+                                <i class="fas fa-redo mr-1"></i> <span>Сброс</span>
                             </button>
                         </div>
                     </div>
@@ -89,11 +122,12 @@
 
                 <!-- Блок "Сейчас выступаете" -->
                 <div id="currentExercise" class="bg-gray-800 rounded-xl shadow-md p-6 hidden">
-                    <h2 id="currentExerciseHeader" class="text-2xl font-semibold text-white mb-2">Время пошло:</h2>
+                    <h2 class="text-2xl font-semibold text-white mb-2">Время пошло:</h2>
                     <h3 id="currentExerciseTitle" class="text-xl font-medium text-white mb-2"></h3>
                     <p id="currentExerciseDesc" class="text-white mb-3"></p>
-                    <div id="currentExerciseDiff" class="flex items-center text-sm">
-                        <span id="difficultyText" class="text-white mr-2">Сложность:</span>
+                    <div class="flex items-center text-sm">
+                        <span class="text-white mr-2">Сложность:</span>
+                        <span id="currentExerciseDiff" class="inline-block border border-blue-500 text-white text-xs px-2 py-1 rounded"></span>
                     </div>
                 </div>
             </div>
@@ -101,125 +135,98 @@
 
         <!-- Футер -->
         <footer class="mt-12 text-center text-gray-400 pb-6">
-            <p id="footerSupportText">Если тебе помог тренажёр, ты можешь поддержать проект:</p>
+            <p>Если тебе помог тренажёр, ты можешь поддержать проект:</p>
             <a href="https://yoomoney.ru/to/4100116092080366" target="_blank" class="text-blue-400 underline mt-2 inline-block">
-                <i class="fab fa-yandex-international mr-1"></i> <span id="donateText">Задонатить</span>
+                <i class="fab fa-yandex-international mr-1"></i> Задонатить
             </a>
-            <p id="footerContactText" class="text-gray-400 mt-2">Если что-то сломалось — скринь и пиши сюда:</p>
+            <p class="text-gray-400 mt-2">Если что-то сломалось — скринь и пиши сюда:</p>
             <a href="https://t.me/urealosinec" target="_blank" class="text-blue-400 underline inline-block mt-1">
                 <i class="fab fa-telegram-plane mr-1"></i> @urealosinec
             </a>
         </footer>
     </div>
 
-    <script>
-        // Локализация
-        const translations = {
-            ru: {
-                mainTitle: "Тренажёр ораторского мастерства",
-                mainSubtitle1: "Каждую неделю упражнения будут меняться",
-                mainSubtitle2: "Каждую неделю ты будешь расти",
-                exercisesTitle: "Твои упражнения",
-                timerTitle: "Готов выступать?",
-                timeLeftText: "осталось",
-                startBtnText: "Старт",
-                pauseBtnText: "Пауза",
-                resetBtnText: "Сброс",
-                currentExerciseHeader: "Время пошло:",
-                difficultyText: "Сложность:",
-                footerSupportText: "Если тебе помог тренажёр, ты можешь поддержать проект:",
-                donateText: "Задонатить",
-                footerContactText: "Если что-то сломалось — скринь и пиши сюда:",
-                difficultyLabels: {
-                    1: "Не бейте меня...",
-                    2: "Говори или умри..",
-                    3: "Voice of God"
-                },
-                exercises: [
-                    {
-                        title: "Повелитель тишины..",
-                        shortDescription: "Возьми любой текст. Каждая запятая - 3 сек пауза.",
-                        description: "Возьми любой текст и начни читать его вслух. На каждой запятой делай 3-х секундную паузу."
-                    },
-                    {
-                        title: "Метроном",
-                        shortDescription: "Используя метроном, читай текст. 1 тик - 1 слово",
-                        description: "Открой в интернете «метроном». Поставь скорость 60. С каждыми тиком ты читаешь по слову. 1 тик - 1 слово."
-                    },
-                    {
-                        title: "Четкость звука",
-                        shortDescription: "Сделай вдох животом. На выдохе произноси «Сссссссс», пока не кончится воздух.",
-                        description: "Сделай глубокий вдох животом. На выдохе произноми звук «Ссссссс», пока не закончится возвдух.Выдыхай с силой."
-                    }
-                ]
-            },
-            en: {
-                mainTitle: "Public Speaking Trainer",
-                mainSubtitle1: "Exercises will change every week",
-                mainSubtitle2: "Every week you will grow",
-                exercisesTitle: "Your Exercises",
-                timerTitle: "Ready to perform?",
-                timeLeftText: "left",
-                startBtnText: "Start",
-                pauseBtnText: "Pause",
-                resetBtnText: "Reset",
-                currentExerciseHeader: "Time is running:",
-                difficultyText: "Difficulty:",
-                footerSupportText: "If the trainer helped you, you can support the project:",
-                donateText: "Donate",
-                footerContactText: "If something is broken — screenshot and write here:",
-                difficultyLabels: {
-                    1: "Don't hit me...",
-                    2: "Speak or die..",
-                    3: "Voice of God"
-                },
-                exercises: [
-                    {
-                        title: "Master of Silence",
-                        shortDescription: "Take any text. Each comma - 3 sec pause.",
-                        description: "Take any text and start reading it aloud. At each comma, take a 3-second pause."
-                    },
-                    {
-                        title: "Metronome",
-                        shortDescription: "Using a metronome, read the text. 1 tick - 1 word",
-                        description: "Open a 'metronome' online. Set speed to 60. With each tick you read one word. 1 tick - 1 word."
-                    },
-                    {
-                        title: "Sound Clarity",
-                        shortDescription: "Take a belly breath. On exhale say 'Sssssss' until air runs out.",
-                        description: "Take a deep belly breath. On exhale, make the sound 'Ssssss' until you run out of air. Exhale with force."
-                    }
-                ]
-            }
-        };
+    <!-- Модальное окно подписки -->
+    <div id="subscriptionModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4">Требуется подписка</h3>
+            <p class="mb-6">Бесплатный пробный период закончился. Для продолжения использования тренажёра оформите подписку.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="border border-blue-500 rounded-lg p-4">
+                    <h4 class="font-bold text-lg mb-2">Месячная подписка</h4>
+                    <p class="text-gray-300 mb-2">299 ₽/месяц</p>
+                    <a href="https://yoomoney.ru/to/4100116092080366" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-center">
+                        Оплатить 299 ₽
+                    </a>
+                </div>
+                <div class="border border-blue-500 rounded-lg p-4">
+                    <h4 class="font-bold text-lg mb-2">Годовая подписка</h4>
+                    <p class="text-gray-300 mb-2">2490 ₽/год (экономия 20%)</p>
+                    <a href="https://yoomoney.ru/to/4100116092080366" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-center">
+                        Оплатить 2490 ₽
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">
+                <p>После оплаты пришлите скриншот чека в Telegram для активации подписки</p>
+            </div>
+            <div class="mt-4 text-center">
+                <button onclick="hideSubscriptionModal()" class="text-blue-400 hover:text-blue-300">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
 
-        // Список упражнений (с данными, не зависящими от языка)
-        let exercises = [
+    <script>
+        // Список упражнений
+        const exercises = [
             {
                 id: 1,
+                title: "Повелитель тишины..",
+                shortDescription: "Возьми любой текст. Каждая запятая - 3 сек пауза.",
+                description: "Возьми любой текст и начни читать его вслух. На каждой запятой делай 3-х секундную паузу.",
                 difficulty: 1,
                 time: 3,
-                completed: false
+                completed: false,
+                requiresSubscription: false
             },
             {
                 id: 2,
+                title: "Метроном",
+                shortDescription: "Используя метроном, читай текст. 1 тик - 1 слово",
+                description: "Открой в интернете «метроном». Поставь скорость 60. С каждыми тиком ты читаешь по слову. 1 тик - 1 слово.",
                 difficulty: 1,
                 time: 2,
-                completed: false
+                completed: false,
+                requiresSubscription: false
             },
             {
                 id: 3,
+                title: "Четкость звука",
+                shortDescription: "Сделай вдох животом. На выдохе произноси «Сссссссс», пока не кончится воздух.",
+                description: "Сделай глубокий вдох животом. На выдохе произноми звук «Ссссссс», пока не закончится возвдух. Выдыхай с силой.",
                 difficulty: 1,
                 time: 5,
-                completed: false
+                completed: false,
+                requiresSubscription: true
             }
         ];
 
-        let currentLanguage = 'ru';
+        // Метки сложности
+        const difficultyLabels = {
+            1: "Не бейте меня...",
+            2: "Говори или умри..",
+            3: "Voice of God"
+        };
+
         let timerInterval;
-        let timeLeft = 180; // 3 минуты по умолчанию
+        let timeLeft = 180;
         let isTimerRunning = false;
         let currentExerciseId = null;
+        let firstUseDate = null;
+        let subscriptionEndDate = null;
+        let isSubscribed = false;
 
         // DOM элементы
         const exercisesList = document.getElementById('exercisesList');
@@ -231,93 +238,155 @@
         const currentExerciseTitle = document.getElementById('currentExerciseTitle');
         const currentExerciseDesc = document.getElementById('currentExerciseDesc');
         const currentExerciseDiff = document.getElementById('currentExerciseDiff');
+        const subscriptionModal = document.getElementById('subscriptionModal');
+        const appContainer = document.getElementById('appContainer');
+        const daysCounter = document.getElementById('daysCounter');
+        const daysLeftText = document.getElementById('daysLeftText');
 
-        // Смена языка
-        function changeLanguage(lang) {
-            currentLanguage = lang;
+        // Проверка подписки и пробного периода
+        function checkSubscription() {
+            const storedFirstUse = localStorage.getItem('firstUseDate');
+            const storedSubscriptionEnd = localStorage.getItem('subscriptionEndDate');
+            const storedIsSubscribed = localStorage.getItem('isSubscribed');
             
-            // Обновляем активную кнопку языка
-            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
-            document.getElementById('langRu').classList.toggle('bg-blue-500', lang === 'ru');
-            document.getElementById('langRu').classList.toggle('bg-gray-700', lang !== 'ru');
-            document.getElementById('langRu').classList.toggle('text-white', lang === 'ru');
-            document.getElementById('langRu').classList.toggle('text-gray-300', lang !== 'ru');
+            if (storedFirstUse) {
+                firstUseDate = new Date(storedFirstUse);
+            } else {
+                firstUseDate = new Date();
+                localStorage.setItem('firstUseDate', firstUseDate.toISOString());
+            }
             
-            document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            document.getElementById('langEn').classList.toggle('bg-blue-500', lang === 'en');
-            document.getElementById('langEn').classList.toggle('bg-gray-700', lang !== 'en');
-            document.getElementById('langEn').classList.toggle('text-white', lang === 'en');
-            document.getElementById('langEn').classList.toggle('text-gray-300', lang !== 'en');
+            if (storedSubscriptionEnd) {
+                subscriptionEndDate = new Date(storedSubscriptionEnd);
+            }
             
-            // Обновляем текст на странице
-            const t = translations[lang];
+            if (storedIsSubscribed) {
+                isSubscribed = storedIsSubscribed === 'true';
+            }
             
-            // Заголовки
-            document.getElementById('mainTitle').textContent = t.mainTitle;
-            document.getElementById('mainSubtitle1').textContent = t.mainSubtitle1;
-            document.getElementById('mainSubtitle2').textContent = t.mainSubtitle2;
-            document.getElementById('exercisesTitle').textContent = t.exercisesTitle;
-            document.getElementById('timerTitle').textContent = t.timerTitle;
-            document.getElementById('timeLeftText').textContent = t.timeLeftText;
-            document.getElementById('startBtnText').textContent = t.startBtnText;
-            document.getElementById('pauseBtnText').textContent = t.pauseBtnText;
-            document.getElementById('resetBtnText').textContent = t.resetBtnText;
-            document.getElementById('currentExerciseHeader').textContent = t.currentExerciseHeader;
-            document.getElementById('difficultyText').textContent = t.difficultyText;
-            document.getElementById('footerSupportText').textContent = t.footerSupportText;
-            document.getElementById('donateText').textContent = t.donateText;
-            document.getElementById('footerContactText').textContent = t.footerContactText;
+            updateDaysCounter();
             
-            // Перерисовываем упражнения
-            renderExercises();
+            const trialEndDate = new Date(firstUseDate);
+            trialEndDate.setDate(trialEndDate.getDate() + 7);
             
-            // Обновляем текущее упражнение, если оно активно
-            if (currentExerciseId) {
-                const exercise = exercises.find(ex => ex.id === currentExerciseId);
-                if (exercise) {
-                    currentExerciseTitle.textContent = `"${t.exercises[exercise.id-1].title}"`;
-                    currentExerciseDesc.textContent = t.exercises[exercise.id-1].description;
+            const now = new Date();
+            
+            if ((isSubscribed && now > subscriptionEndDate) || (!isSubscribed && now > trialEndDate)) {
+                isSubscribed = false;
+                localStorage.setItem('isSubscribed', 'false');
+                showSubscriptionModal();
+                appContainer.classList.add('blur');
+            }
+        }
+
+        // Обновление счётчика дней
+        function updateDaysCounter() {
+            const now = new Date();
+            
+            if (isSubscribed && subscriptionEndDate) {
+                const diffTime = subscriptionEndDate - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays > 0) {
+                    daysLeftText.textContent = `Дней подписки: ${diffDays}`;
+                    daysCounter.classList.remove('hidden');
+                } else {
+                    daysCounter.classList.add('hidden');
+                }
+            } else if (!isSubscribed) {
+                const trialEndDate = new Date(firstUseDate);
+                trialEndDate.setDate(trialEndDate.getDate() + 7);
+                
+                const diffTime = trialEndDate - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays > 0) {
+                    daysLeftText.textContent = `Подписка действует: ${diffDays}`;
+                    daysCounter.classList.remove('hidden');
+                } else {
+                    daysCounter.classList.add('hidden');
                 }
             }
         }
 
-        // Метка уровня сложности
-        function getDifficultyLabel(difficulty) {
-            const label = translations[currentLanguage].difficultyLabels[difficulty] || "Unknown";
-            return `<span class="inline-block border border-blue-500 text-white text-xs px-2 py-1 rounded">${label}</span>`;
+        // Показать/скрыть модальное окно подписки
+        function showSubscriptionModal() {
+            subscriptionModal.classList.remove('hidden');
         }
 
-        // Рисует карточки упражнений
+        function hideSubscriptionModal() {
+            subscriptionModal.classList.add('hidden');
+            appContainer.classList.remove('blur');
+        }
+
+        // Активация подписки
+        function activateSubscription(durationMonths) {
+            const now = new Date();
+            subscriptionEndDate = new Date(now);
+            subscriptionEndDate.setMonth(now.getMonth() + durationMonths);
+            
+            isSubscribed = true;
+            
+            localStorage.setItem('isSubscribed', 'true');
+            localStorage.setItem('subscriptionEndDate', subscriptionEndDate.toISOString());
+            
+            hideSubscriptionModal();
+            updateDaysCounter();
+            renderExercises();
+            
+            alert(`Подписка активирована на ${durationMonths} месяцев!`);
+        }
+
+        // Метка уровня сложности
+        function getDifficultyLabel(difficulty) {
+            return difficultyLabels[difficulty] || "Неизвестно";
+        }
+
+        // Рендер упражнений
         function renderExercises() {
             exercisesList.innerHTML = '';
-            const t = translations[currentLanguage];
             
-            exercises.forEach((exercise, index) => {
-                const difficultyLabel = getDifficultyLabel(exercise.difficulty);
-                const exerciseData = t.exercises[index];
-                
+            exercises.forEach((exercise) => {
                 const exerciseCard = document.createElement('div');
-                exerciseCard.className = 'speech-card border-2 border-blue-500 rounded-lg p-4 bg-gray-700 transition cursor-pointer hover:shadow-md';
+                const isLocked = exercise.requiresSubscription && !isSubscribed;
+                
+                exerciseCard.className = `speech-card border-2 ${isLocked ? 'border-red-500 opacity-70' : 'border-blue-500'} rounded-lg p-4 bg-gray-700 transition cursor-pointer hover:shadow-md`;
+                
                 exerciseCard.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
-                            <h3 class="font-semibold text-lg text-white">"${exerciseData.title}"</h3>
-                            <p class="text-white text-sm mt-1">${exerciseData.shortDescription}</p>
+                            <h3 class="font-semibold text-lg text-white">"${exercise.title}"</h3>
+                            <p class="text-white text-sm mt-1">${exercise.shortDescription}</p>
                         </div>
-                        <span class="text-white whitespace-nowrap">${exercise.time} ${currentLanguage === 'ru' ? 'мин' : 'min'}</span>
+                        <span class="text-white whitespace-nowrap">${exercise.time} мин</span>
                     </div>
                     <div class="mt-3 flex justify-between items-center">
                         <div>
-                            <span class="text-white mr-2">${t.difficultyText}</span>
-                            ${difficultyLabel}
+                            <span class="text-white mr-2">Сложность:</span>
+                            <span class="inline-block border border-blue-500 text-white text-xs px-2 py-1 rounded">
+                                ${getDifficultyLabel(exercise.difficulty)}
+                            </span>
                         </div>
                         <div>
-                            <button onclick="startExercise(${exercise.id}, event)" class="text-xs bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded-md">
-                                ${currentLanguage === 'ru' ? 'Начать' : 'Start'}
-                            </button>
+                            ${isLocked ? 
+                                `<span class="text-xs bg-red-600 text-white px-3 py-1 rounded-md">
+                                    <i class="fas fa-lock mr-1"></i> Требуется подписка
+                                </span>` :
+                                `<button onclick="startExercise(${exercise.id}, event)" class="text-xs bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded-md">
+                                    Начать
+                                </button>`
+                            }
                         </div>
                     </div>
+                    ${isLocked ? `<div class="mt-2 text-red-400 text-xs">Для доступа к этому упражнению требуется подписка</div>` : ''}
                 `;
+                
+                if (isLocked) {
+                    exerciseCard.addEventListener('click', () => {
+                        showSubscriptionModal();
+                    });
+                }
+                
                 exercisesList.appendChild(exerciseCard);
             });
         }
@@ -325,38 +394,40 @@
         // Запуск упражнения
         function startExercise(id, event) {
             if (event) event.stopPropagation();
+            
             const exercise = exercises.find(ex => ex.id === id);
             if (!exercise) return;
+
+            if (exercise.requiresSubscription && !isSubscribed) {
+                showSubscriptionModal();
+                return;
+            }
 
             currentExerciseId = id;
             timeLeft = exercise.time * 60;
             updateTimerDisplay();
 
-            // Показываем полное описание упражнения
-            const t = translations[currentLanguage];
-            const exerciseData = t.exercises[id-1];
-            
-            currentExerciseTitle.textContent = `"${exerciseData.title}"`;
-            currentExerciseDesc.textContent = exerciseData.description;
-
-            // Отображаем уровень сложности с пометкой
-            currentExerciseDiff.innerHTML = `
-                <span class="text-white mr-2">${t.difficultyText}</span>
-                ${getDifficultyLabel(exercise.difficulty)}
-            `;
+            currentExerciseTitle.textContent = `"${exercise.title}"`;
+            currentExerciseDesc.textContent = exercise.description;
+            currentExerciseDiff.textContent = getDifficultyLabel(exercise.difficulty);
 
             currentExerciseDiv.classList.remove('hidden');
-
-            // Скроллим к таймеру
             document.getElementById('timerCircle').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Таймер
+        // Управление таймером
         function startExerciseAndTimer() {
             if (!currentExerciseId) {
-                alert(currentLanguage === 'ru' ? "Пожалуйста, выберите упражнение" : "Please select an exercise");
+                alert("Пожалуйста, выберите упражнение");
                 return;
             }
+            
+            const exercise = exercises.find(ex => ex.id === currentExerciseId);
+            if (exercise.requiresSubscription && !isSubscribed) {
+                showSubscriptionModal();
+                return;
+            }
+            
             startTimer();
         }
 
@@ -416,7 +487,7 @@
             const seconds = timeLeft % 60;
             timerDisplay.querySelector('div:first-child').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-            const totalSeconds = currentExerciseId ? exercises.find(ex => ex.id === currentExerciseId)?.time * 60 : 180;
+            const totalSeconds = currentExerciseId ? exercises.find(ex => ex.id === currentExerciseId).time * 60 : 180;
             const circumference = 2 * Math.PI * 80;
             const percent = (timeLeft / totalSeconds) * circumference;
             timerProgress.style.strokeDasharray = circumference;
@@ -425,18 +496,18 @@
 
         function playCompletionSound() {
             const audio = new Audio('https://assets.mixkit.co/sounds/download/mixkit-software-interface-file-operation-completed-2120.wav'); 
-            audio.play().catch(e => console.log('❌ Не удалось воспроизвести звук:', e));
+            audio.play().catch(e => console.log('Не удалось воспроизвести звук:', e));
         }
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', () => {
+            checkSubscription();
             renderExercises();
             updateTimerDisplay();
-            // Устанавливаем русский язык по умолчанию
-            changeLanguage('ru');
         });
 
         window.startTimer = startTimer;
+        window.hideSubscriptionModal = hideSubscriptionModal;
     </script>
 </body>
 </html>
