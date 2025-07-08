@@ -62,6 +62,12 @@
             width: 100%;
             margin-bottom: 1rem;
         }
+        .admin-panel {
+            border: 2px solid #F59E0B;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body class="bg-gray-900 min-h-screen">
@@ -96,6 +102,32 @@
                     </div>
                     <!-- Список упражнений -->
                     <div id="exercisesList" class="space-y-4 overflow-y-auto max-h-[70vh]"></div>
+                    
+                    <!-- Админская панель (скрыта по умолчанию) -->
+                    <div id="adminPanel" class="admin-panel hidden mt-4">
+                        <h3 class="text-xl font-bold text-yellow-400 mb-2">Админская панель</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Создать промокод</h4>
+                                <input id="newPromoDays" type="number" min="1" class="promo-input mb-2" placeholder="Количество дней">
+                                <input id="newPromoCode" type="text" class="promo-input mb-2" placeholder="Новый код (оставьте пустым для авто)">
+                                <button onclick="generatePromoCode()" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded">
+                                    Создать код
+                                </button>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Активные промокоды</h4>
+                                <div id="activePromoCodes" class="text-sm text-gray-300 overflow-y-auto max-h-32">
+                                    Загрузка...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button onclick="resetAllPromoCodes()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded text-sm">
+                                Сбросить все промокоды
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -211,6 +243,24 @@
         </div>
     </div>
 
+    <!-- Модальное окно админского входа -->
+    <div id="adminLoginModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="text-2xl font-bold mb-4">Админский доступ</h3>
+            <p class="mb-4">Введите админский пароль:</p>
+            <input id="adminPasswordInput" type="password" class="promo-input" placeholder="Админский пароль">
+            <div class="flex justify-center space-x-4">
+                <button onclick="checkAdminPassword()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">
+                    Войти
+                </button>
+                <button onclick="hideAdminLoginModal()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                    Отмена
+                </button>
+            </div>
+            <div id="adminLoginMessage" class="mt-4 text-center text-sm"></div>
+        </div>
+    </div>
+
     <script>
         // Список упражнений
         const exercises = [
@@ -246,11 +296,14 @@
             }
         ];
 
+        // Админский пароль (в реальном приложении это должно быть на сервере)
+        const ADMIN_PASSWORD = "admin12345";
+        
         // Список действительных промокодов (в реальном приложении это должно быть на сервере)
-        const validPromoCodes = {
-            "ORATOR2024": { type: "full", days: 365 }, // Год доступа
-            "SPEECHMASTER": { type: "full", days: 30 }, // Месяц доступа
-            "FREETRIAL": { type: "trial", days: 7 } // Неделя доступа
+        const DEFAULT_PROMO_CODES = {
+            "ORATOR2024": { days: 365, used: false }, // Год доступа
+            "SPEECHMASTER": { days: 30, used: false }, // Месяц доступа
+            "FREETRIAL": { days: 7, used: false } // Неделя доступа
         };
 
         // Метки сложности
@@ -268,6 +321,7 @@
         let subscriptionEndDate = null;
         let isSubscribed = false;
         let promoActivated = false;
+        let isAdmin = false;
 
         // DOM элементы
         const exercisesList = document.getElementById('exercisesList');
@@ -283,9 +337,51 @@
         const promoModal = document.getElementById('promoModal');
         const promoCodeInput = document.getElementById('promoCodeInput');
         const promoMessage = document.getElementById('promoMessage');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const adminPasswordInput = document.getElementById('adminPasswordInput');
+        const adminLoginMessage = document.getElementById('adminLoginMessage');
+        const adminPanel = document.getElementById('adminPanel');
         const appContainer = document.getElementById('appContainer');
         const daysCounter = document.getElementById('daysCounter');
         const daysLeftText = document.getElementById('daysLeftText');
+        const activePromoCodes = document.getElementById('activePromoCodes');
+        const newPromoDays = document.getElementById('newPromoDays');
+        const newPromoCode = document.getElementById('newPromoCode');
+
+        // Инициализация промокодов
+        function initPromoCodes() {
+            if (!localStorage.getItem('promoCodes')) {
+                localStorage.setItem('promoCodes', JSON.stringify(DEFAULT_PROMO_CODES));
+            }
+            if (!localStorage.getItem('usedPromoCodes')) {
+                localStorage.setItem('usedPromoCodes', JSON.stringify([]));
+            }
+        }
+
+        // Получить все промокоды
+        function getPromoCodes() {
+            return JSON.parse(localStorage.getItem('promoCodes')) || {};
+        }
+
+        // Получить использованные промокоды для текущего пользователя
+        function getUsedPromoCodes() {
+            return JSON.parse(localStorage.getItem('usedPromoCodes')) || [];
+        }
+
+        // Добавить использованный промокод
+        function addUsedPromoCode(code) {
+            const usedCodes = getUsedPromoCodes();
+            if (!usedCodes.includes(code)) {
+                usedCodes.push(code);
+                localStorage.setItem('usedPromoCodes', JSON.stringify(usedCodes));
+            }
+        }
+
+        // Проверить, использовал ли пользователь промокод
+        function hasUsedPromoCode(code) {
+            const usedCodes = getUsedPromoCodes();
+            return usedCodes.includes(code);
+        }
 
         // Проверка подписки и пробного периода
         function checkSubscription() {
@@ -293,6 +389,7 @@
             const storedSubscriptionEnd = localStorage.getItem('subscriptionEndDate');
             const storedIsSubscribed = localStorage.getItem('isSubscribed');
             const storedPromoActivated = localStorage.getItem('promoActivated');
+            const storedIsAdmin = localStorage.getItem('isAdmin');
             
             if (storedFirstUse) {
                 firstUseDate = new Date(storedFirstUse);
@@ -311,6 +408,14 @@
             
             if (storedPromoActivated) {
                 promoActivated = storedPromoActivated === 'true';
+            }
+            
+            if (storedIsAdmin) {
+                isAdmin = storedIsAdmin === 'true';
+                if (isAdmin) {
+                    adminPanel.classList.remove('hidden');
+                    updateActivePromoCodesList();
+                }
             }
             
             updateDaysCounter();
@@ -393,6 +498,99 @@
             promoModal.classList.add('hidden');
         }
 
+        // Показать/скрыть модальное окно админского входа
+        function showAdminLoginModal() {
+            adminLoginModal.classList.remove('hidden');
+            adminPasswordInput.value = '';
+            adminLoginMessage.textContent = '';
+        }
+
+        function hideAdminLoginModal() {
+            adminLoginModal.classList.add('hidden');
+        }
+
+        // Проверить админский пароль
+        function checkAdminPassword() {
+            const password = adminPasswordInput.value.trim();
+            
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                localStorage.setItem('isAdmin', 'true');
+                adminPanel.classList.remove('hidden');
+                updateActivePromoCodesList();
+                hideAdminLoginModal();
+            } else {
+                adminLoginMessage.textContent = "Неверный пароль!";
+                adminLoginMessage.style.color = "red";
+            }
+        }
+
+        // Обновить список активных промокодов
+        function updateActivePromoCodesList() {
+            const promoCodes = getPromoCodes();
+            let html = '';
+            
+            for (const [code, data] of Object.entries(promoCodes)) {
+                html += `<div class="mb-1">
+                    <span class="font-mono">${code}</span> - ${data.days} дней
+                    <span class="text-xs ${data.used ? 'text-red-400' : 'text-green-400'}">
+                        (${data.used ? 'использован' : 'активен'})
+                    </span>
+                </div>`;
+            }
+            
+            activePromoCodes.innerHTML = html || '<div class="text-gray-400">Нет активных промокодов</div>';
+        }
+
+        // Генерация нового промокода
+        function generatePromoCode() {
+            const days = parseInt(newPromoDays.value);
+            const customCode = newPromoCode.value.trim();
+            
+            if (!days || days < 1) {
+                alert("Укажите количество дней (минимум 1)");
+                return;
+            }
+            
+            let code;
+            
+            if (customCode) {
+                if (getPromoCodes()[customCode]) {
+                    alert("Этот код уже существует!");
+                    return;
+                }
+                code = customCode.toUpperCase();
+            } else {
+                // Генерация случайного кода
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                do {
+                    code = '';
+                    for (let i = 0; i < 8; i++) {
+                        code += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                } while (getPromoCodes()[code]);
+            }
+            
+            const promoCodes = getPromoCodes();
+            promoCodes[code] = { days, used: false };
+            localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
+            
+            newPromoDays.value = '';
+            newPromoCode.value = '';
+            updateActivePromoCodesList();
+            
+            alert(`Промокод создан: ${code}\nДействителен ${days} дней`);
+        }
+
+        // Сбросить все промокоды
+        function resetAllPromoCodes() {
+            if (confirm("Вы уверены, что хотите сбросить ВСЕ промокоды? Это действие нельзя отменить!")) {
+                localStorage.setItem('promoCodes', JSON.stringify(DEFAULT_PROMO_CODES));
+                updateActivePromoCodesList();
+                alert("Все промокоды сброшены к значениям по умолчанию");
+            }
+        }
+
         // Активация промокода
         function activatePromoCode() {
             const code = promoCodeInput.value.trim().toUpperCase();
@@ -403,14 +601,30 @@
                 return;
             }
             
-            if (validPromoCodes[code]) {
-                const promoInfo = validPromoCodes[code];
+            // Проверка, не использовал ли уже пользователь этот код
+            if (hasUsedPromoCode(code)) {
+                promoMessage.textContent = "Вы уже использовали этот код!";
+                promoMessage.style.color = "red";
+                return;
+            }
+            
+            const promoCodes = getPromoCodes();
+            const promoInfo = promoCodes[code];
+            
+            if (promoInfo && !promoInfo.used) {
                 const now = new Date();
                 subscriptionEndDate = new Date(now);
                 subscriptionEndDate.setDate(subscriptionEndDate.getDate() + promoInfo.days);
                 
                 isSubscribed = true;
                 promoActivated = true;
+                
+                // Пометить код как использованный для этого пользователя
+                addUsedPromoCode(code);
+                
+                // Пометить код как использованный в общем списке
+                promoCodes[code].used = true;
+                localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
                 
                 localStorage.setItem('isSubscribed', 'true');
                 localStorage.setItem('promoActivated', 'true');
@@ -425,9 +639,13 @@
                     updateDaysCounter();
                     renderExercises();
                     appContainer.classList.remove('blur');
+                    
+                    if (isAdmin) {
+                        updateActivePromoCodesList();
+                    }
                 }, 1500);
             } else {
-                promoMessage.textContent = "Неверный код. Попробуйте еще раз.";
+                promoMessage.textContent = "Неверный или уже использованный код. Попробуйте еще раз.";
                 promoMessage.style.color = "red";
             }
         }
@@ -616,9 +834,26 @@
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', () => {
+            initPromoCodes();
             checkSubscription();
             renderExercises();
             updateTimerDisplay();
+            
+            // Секретная комбинация для админского входа (Shift + A + D + M + I + N)
+            let keySequence = [];
+            const secretCode = ['Shift', 'A', 'D', 'M', 'I', 'N'];
+            
+            document.addEventListener('keydown', (e) => {
+                keySequence.push(e.key);
+                if (keySequence.length > secretCode.length) {
+                    keySequence.shift();
+                }
+                
+                if (keySequence.join('') === secretCode.join('')) {
+                    showAdminLoginModal();
+                    keySequence = [];
+                }
+            });
         });
 
         window.startTimer = startTimer;
@@ -626,6 +861,10 @@
         window.showPromoModal = showPromoModal;
         window.hidePromoModal = hidePromoModal;
         window.activatePromoCode = activatePromoCode;
+        window.generatePromoCode = generatePromoCode;
+        window.resetAllPromoCodes = resetAllPromoCodes;
+        window.checkAdminPassword = checkAdminPassword;
+        window.hideAdminLoginModal = hideAdminLoginModal;
     </script>
 </body>
 </html>
