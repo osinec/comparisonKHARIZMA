@@ -1,119 +1,74 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Скачать изображение</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 50px 20px;
-            background-color: #f0f8ff;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin: 20px 0;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .loading {
-            display: none;
-            margin: 20px 0;
-        }
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 2s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Скачать чек-лист</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+    .download-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background: #f72585;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+    }
+    .download-button:hover {
+      background: #e5177e;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+    }
+    .download-button:active {
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Скачать изображение</h1>
-        
-        <button id="downloadBtn" onclick="startDownload()">Скачать изображение</button>
-        
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Подготовка файла к скачиванию...</p>
-        </div>
-    </div>
-
-    <script>
-        function startDownload() {
-            // Показываем индикатор загрузки
-            document.getElementById('downloadBtn').disabled = true;
-            document.getElementById('loading').style.display = 'block';
-            
-            // Прямая ссылка на изображение
-            const imageUrl = 'https://winnote.ru/uploads/posts/2018-06/1530096019_taskmgr_chrome_2.png';
-            const filename = 'taskmgr_chrome_2.png';
-            
-            // Используем fetch для обхода CORS ограничений
-            fetch(imageUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    // Создаем объект URL для blob
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = filename;
-                    
-                    // Добавляем элемент в DOM, кликаем и удаляем
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                    
-                    // Скрываем индикатор загрузки
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('downloadBtn').disabled = false;
-                })
-                .catch(error => {
-                    console.error('Ошибка при скачивании:', error);
-                    alert('Произошла ошибка при скачивании файла. Попробуйте еще раз.');
-                    
-                    // Скрываем индикатор загрузки
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('downloadBtn').disabled = false;
-                });
-        }
-    </script>
+  <div class="container">
+    <h1>Готовый чек-лист</h1>
+    <p>Скачайте бесплатный шаблон для подготовки к выступлению</p>
+    <a href="https://disk.yandex.ru/i/st8tL50DQASlSg" 
+       class="download-button" 
+       target="_blank">
+      📥 Скачать с Яндекс.Диска
+    </a>
+  </div>
 </body>
 </html>
