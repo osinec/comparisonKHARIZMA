@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Скачать чек-лист</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чек-лист для подготовки к выступлению</title>
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -59,7 +57,7 @@
       transform: translateY(0);
     }
 
-    /* Модальное окно для полноэкранного изображения */
+    /* Модальное окно */
     .modal {
       display: none;
       position: fixed;
@@ -68,17 +66,19 @@
       top: 0;
       width: 100%;
       height: 100%;
+      overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
-      overflow: hidden;
     }
     .modal-content {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-color: transparent;
+      margin: 3% auto;
       padding: 20px;
-      box-sizing: border-box;
+      border: none;
+      border-radius: 0;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: none;
+      text-align: center;
     }
     .modal-content img {
       max-width: 100%;
@@ -115,29 +115,36 @@
   <div id="imageModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <div class="modal-content">
-      <img id="fullScreenImg" src="https://disk.yandex.ru/i/st8tL50DQASlSg" alt="Чек-лист">
+      <img id="fullScreenImg" src="" alt="Чек-лист">
     </div>
   </div>
 
   <script>
-    // Открыть модальное окно с изображением
+    // Функция открытия полноэкранного изображения
     function openFullScreenImage() {
       const modal = document.getElementById('imageModal');
       const img = document.getElementById('fullScreenImg');
-      modal.style.display = 'block';
 
-      // Попробуем загрузить изображение
+      // Ссылка на изображение
+      const imageUrl = 'https://disk.yandex.ru/i/st8tL50DQASlSg';
+
+      // Попытка загрузить изображение
       img.onload = () => {
-        console.log('Изображение загружено');
+        console.log('Изображение загружено успешно');
+        modal.style.display = 'block';
       };
+
       img.onerror = () => {
         alert('Ошибка загрузки изображения. Попробуйте открыть ссылку вручную.');
-        window.open('https://disk.yandex.ru/i/st8tL50DQASlSg', '_blank');
+        window.open(imageUrl, '_blank');
         closeModal();
       };
+
+      // Установка исходной ссылки
+      img.src = imageUrl;
     }
 
-    // Закрыть модальное окно
+    // Функция закрытия модального окна
     function closeModal() {
       document.getElementById('imageModal').style.display = 'none';
     }
