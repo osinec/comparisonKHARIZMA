@@ -31,7 +31,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 800px; /* Ограничим ширину для лучшего вида */
+            max-width: 800px;
             margin: 0 auto;
         }
         header {
@@ -56,9 +56,36 @@
         .pair {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Расстояние между природными данными и упражнением */
-            margin-bottom: 50px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
+        
+        /* Новый стиль для разделителя из трех полос */
+        .triple-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+        }
+        .divider-line {
+            height: 2px;
+            width: 80%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            margin: 5px 0;
+        }
+        .divider-line:nth-child(1) {
+            width: 60%;
+            opacity: 0.6;
+        }
+        .divider-line:nth-child(2) {
+            width: 70%;
+            opacity: 0.8;
+        }
+        .divider-line:nth-child(3) {
+            width: 80%;
+            opacity: 1;
+        }
+
         .item {
             background: var(--card-bg);
             border-radius: 12px;
@@ -73,7 +100,7 @@
             box-shadow: var(--shadow-hover);
         }
 
-        /* Цветовые схемы для парных блоков */
+        /* Остальные стили остаются без изменений */
         .item-1 {
             border-top: 4px solid var(--primary-1);
         }
@@ -142,7 +169,7 @@
         }
 
         .item h2 {
-            margin-top: 10px; /* Учитываем абсолютное позиционирование номера */
+            margin-top: 10px;
             margin-bottom: 20px;
             padding-bottom: 10px;
             font-size: 1.6rem;
@@ -182,7 +209,7 @@
         }
         .traits-list li:before {
             content: "•";
-            color: var(--primary-2); /* Можно сделать цвет зависимым от группы */
+            color: var(--primary-2);
             position: absolute;
             left: 10px;
             font-weight: bold;
@@ -238,7 +265,7 @@
             margin-bottom: 10px;
         }
         .exercise li {
-            margin-bottom: 15px; /* Увеличил отступ */
+            margin-bottom: 15px;
         }
         .exercise .exercise-details {
             font-size: 0.95rem;
@@ -270,7 +297,7 @@
         }
 
         @media (max-width: 768px) {
-             .item {
+            .item {
                 padding: 20px;
             }
             h1 {
@@ -281,6 +308,9 @@
             }
             .item h3 {
                 font-size: 1.2rem;
+            }
+            .triple-divider {
+                margin: 30px 0;
             }
         }
     </style>
@@ -340,6 +370,13 @@
             </div>
         </div>
 
+        <!-- Разделитель 1 -->
+        <div class="triple-divider">
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+        </div>
+
         <!-- Пара 2 -->
         <div class="pair">
             <!-- Природные данные 2 -->
@@ -388,6 +425,13 @@
             </div>
         </div>
 
+        <!-- Разделитель 2 -->
+        <div class="triple-divider">
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+        </div>
+
         <!-- Пара 3 -->
         <div class="pair">
             <!-- Природные данные 3 -->
@@ -434,6 +478,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Разделитель 3 -->
+        <div class="triple-divider">
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
         </div>
 
         <!-- Пара 4 -->
@@ -486,6 +537,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Разделитель 4 -->
+        <div class="triple-divider">
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
         </div>
 
         <!-- Пара 5 -->
@@ -546,5 +604,3 @@
     </div>
 </body>
 </html>
-```
-
