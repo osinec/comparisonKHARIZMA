@@ -1,3 +1,8 @@
+Хорошо, вот обновлённый HTML-код с более подробными упражнениями и дополнительными пунктами для каждой группы природных задатков.
+
+Я добавил по 1-2 дополнительных упражнения в каждую группу и расписал существующие упражнения более подробно.
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -18,97 +23,61 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.7;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
-            position: relative;
         }
-        
+        .container {
+            max-width: 800px; /* Ограничим ширину для лучшего вида */
+            margin: 0 auto;
+        }
         header {
             text-align: center;
-            padding: 40px 0;
+            padding: 40px 20px;
             background: linear-gradient(135deg, var(--primary-2), var(--primary-4));
             color: white;
             border-radius: 12px;
             margin-bottom: 40px;
             box-shadow: var(--shadow-hover);
         }
-        
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
-        
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
             font-weight: 300;
         }
-        
-        .content {
+        .pair {
             display: flex;
-            gap: 40px;
+            flex-direction: column;
+            gap: 20px; /* Расстояние между природными данными и упражнением */
             margin-bottom: 50px;
         }
-        
-        .column {
-            flex: 1;
+        .item {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 30px;
             box-shadow: var(--shadow);
             position: relative;
-            z-index: 1;
-        }
-        
-        .column h2 {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-        
-        .left-column h2 {
-            color: var(--primary-2);
-        }
-        
-        .right-column h2 {
-            color: var(--primary-4);
-        }
-        
-        .item {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 10px;
             transition: all 0.3s ease;
-            background: var(--card-bg);
             border: 1px solid #edf2f7;
-            position: relative;
-            overflow: hidden;
         }
-        
         .item:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
         }
-        
+
         /* Цветовые схемы для парных блоков */
         .item-1 {
             border-top: 4px solid var(--primary-1);
@@ -116,35 +85,31 @@
         .item-1:hover {
             border-color: var(--primary-1);
         }
-        
         .item-2 {
             border-top: 4px solid var(--primary-2);
         }
         .item-2:hover {
             border-color: var(--primary-2);
         }
-        
         .item-3 {
             border-top: 4px solid var(--primary-3);
         }
         .item-3:hover {
             border-color: var(--primary-3);
         }
-        
         .item-4 {
             border-top: 4px solid var(--primary-4);
         }
         .item-4:hover {
             border-color: var(--primary-4);
         }
-        
         .item-5 {
             border-top: 4px solid var(--primary-5);
         }
         .item-5:hover {
             border-color: var(--primary-5);
         }
-        
+
         .item-number {
             position: absolute;
             top: -12px;
@@ -158,33 +123,43 @@
             justify-content: center;
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1;
         }
-        
         .item-1 .item-number {
             background: var(--primary-1);
             color: white;
         }
-        
         .item-2 .item-number {
             background: var(--primary-2);
             color: white;
         }
-        
         .item-3 .item-number {
             background: var(--primary-3);
             color: white;
         }
-        
         .item-4 .item-number {
             background: var(--primary-4);
             color: white;
         }
-        
         .item-5 .item-number {
             background: var(--primary-5);
             color: white;
         }
-        
+
+        .item h2 {
+            margin-top: 10px; /* Учитываем абсолютное позиционирование номера */
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+        .left-column h2 {
+            color: var(--primary-2);
+        }
+        .right-column h2 {
+            color: var(--primary-4);
+        }
+
         .item h3 {
             margin-bottom: 15px;
             font-size: 1.4rem;
@@ -192,156 +167,105 @@
             align-items: center;
             padding-left: 10px;
         }
-        
         .item h3 .emoji {
             margin-right: 10px;
             font-size: 1.2em;
         }
-        
         .item p {
             color: var(--text-light);
             margin-bottom: 15px;
         }
-        
         .traits-list {
             list-style-type: none;
             margin-bottom: 15px;
         }
-        
         .traits-list li {
             padding: 8px 0;
             padding-left: 25px;
             position: relative;
             color: var(--text-light);
         }
-        
         .traits-list li:before {
             content: "•";
-            color: var(--primary-2);
+            color: var(--primary-2); /* Можно сделать цвет зависимым от группы */
             position: absolute;
             left: 10px;
             font-weight: bold;
         }
-        
+
         .exercise {
             padding: 16px;
             margin-top: 15px;
             border-radius: 8px;
             position: relative;
         }
-        
         .item-1 .exercise {
             background: rgba(91, 108, 195, 0.08);
             border-left: 4px solid var(--primary-1);
         }
-        
         .item-2 .exercise {
             background: rgba(124, 58, 237, 0.08);
             border-left: 4px solid var(--primary-2);
         }
-        
         .item-3 .exercise {
             background: rgba(159, 122, 234, 0.08);
             border-left: 4px solid var(--primary-3);
         }
-        
         .item-4 .exercise {
             background: rgba(102, 126, 234, 0.08);
             border-left: 4px solid var(--primary-4);
         }
-        
         .item-5 .exercise {
             background: rgba(118, 74, 188, 0.08);
             border-left: 4px solid var(--primary-5);
         }
-        
         .exercise h4 {
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
-        
         .item-1 .exercise h4 {
             color: var(--primary-1);
         }
-        
         .item-2 .exercise h4 {
             color: var(--primary-2);
         }
-        
         .item-3 .exercise h4 {
             color: var(--primary-3);
         }
-        
         .item-4 .exercise h4 {
             color: var(--primary-4);
         }
-        
         .item-5 .exercise h4 {
             color: var(--primary-5);
         }
-        
         .exercise ul {
             padding-left: 20px;
             margin-bottom: 10px;
         }
-        
         .exercise li {
-            margin-bottom: 8px;
+            margin-bottom: 15px; /* Увеличил отступ */
         }
-        
+        .exercise .exercise-details {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: block;
+        }
         .checkbox {
             display: flex;
             align-items: center;
             margin-top: 15px;
             cursor: pointer;
         }
-        
         .checkbox input {
             margin-right: 10px;
             cursor: pointer;
         }
-        
         .checkbox-label {
             color: var(--text-light);
             font-size: 0.9rem;
         }
-        
-        /* Соединительные линии (только для десктопа) */
-        @media (min-width: 769px) {
-            .connector {
-                position: absolute;
-                background: linear-gradient(to right, var(--from-color), var(--to-color));
-                height: 2px;
-                z-index: 0;
-                opacity: 0.3;
-            }
-            
-            .connector-1 {
-                --from-color: var(--primary-1);
-                --to-color: var(--primary-1);
-            }
-            
-            .connector-2 {
-                --from-color: var(--primary-2);
-                --to-color: var(--primary-2);
-            }
-            
-            .connector-3 {
-                --from-color: var(--primary-3);
-                --to-color: var(--primary-3);
-            }
-            
-            .connector-4 {
-                --from-color: var(--primary-4);
-                --to-color: var(--primary-4);
-            }
-            
-            .connector-5 {
-                --from-color: var(--primary-5);
-                --to-color: var(--primary-5);
-            }
-        }
-        
+
         footer {
             text-align: center;
             margin-top: 60px;
@@ -349,28 +273,19 @@
             color: var(--text-light);
             font-size: 0.95rem;
         }
-        
+
         @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
-                gap: 30px;
+             .item {
+                padding: 20px;
             }
-            
             h1 {
                 font-size: 2rem;
             }
-            
-            .item {
-                margin-bottom: 20px;
+            .item h2 {
+                font-size: 1.4rem;
             }
-            
-            /* На мобильных показываем номер группы */
-            .item:before {
-                content: "Группа " attr(data-group);
-                display: block;
-                font-weight: bold;
-                margin-bottom: 10px;
-                color: var(--text);
+            .item h3 {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -379,204 +294,261 @@
     <div class="container">
         <header>
             <h1>Система развития оратора</h1>
-            <p class="subtitle">Качества → Упражнения: визуальная связь</p>
+            <p class="subtitle">Качества → Упражнения: последовательность</p>
         </header>
-        
-        <div class="content">
-            <!-- Левый столбец: врождённые качества -->
-            <div class="column left-column">
+
+        <!-- Пара 1 -->
+        <div class="pair">
+            <!-- Природные данные 1 -->
+            <div class="item item-1">
+                <div class="item-number">1</div>
                 <h2>Природные данные</h2>
-                
-                <div class="item item-1" data-group="1">
-                    <div class="item-number">1</div>
-                    <h3><span class="emoji">💬</span>Коммуникативные способности</h3>
-                    <p>Что дано от рождения:</p>
-                    <ul class="traits-list">
-                        <li>Лёгкость в установлении контакта</li>
-                        <li>Чтение социальных сигналов</li>
-                        <li>Поддержание беседы</li>
-                        <li>Активное слушание</li>
-                    </ul>
-                </div>
-                
-                <div class="item item-2" data-group="2">
-                    <div class="item-number">2</div>
-                    <h3><span class="emoji">🎭</span>Эмоциональный интеллект</h3>
-                    <p>Природные преимущества:</p>
-                    <ul class="traits-list">
-                        <li>Выразительная мимика</li>
-                        <li>Естественная жестикуляция</li>
-                        <li>Эмоциональная заразительность</li>
-                        <li>Чувствование аудитории</li>
-                    </ul>
-                </div>
-                
-                <div class="item item-3" data-group="3">
-                    <div class="item-number">3</div>
-                    <h3><span class="emoji">🦁</span>Уверенность</h3>
-                    <p>Врождённые особенности:</p>
-                    <ul class="traits-list">
-                        <li>Низкий страх оценки</li>
-                        <li>Комфорт в центре внимания</li>
-                        <li>Стрессоустойчивость</li>
-                        <li>Быстрое восстановление</li>
-                    </ul>
-                </div>
-                
-                <div class="item item-4" data-group="4">
-                    <div class="item-number">4</div>
-                    <h3><span class="emoji">🎤</span>Голосовые данные</h3>
-                    <p>Природные характеристики:</p>
-                    <ul class="traits-list">
-                        <li>Приятный тембр</li>
-                        <li>Хорошая дикция</li>
-                        <li>Широкий диапазон</li>
-                        <li>Выносливость связок</li>
-                    </ul>
-                </div>
-                
-                <div class="item item-5" data-group="5">
-                    <div class="item-number">5</div>
-                    <h3><span class="emoji">✨</span>Креативность</h3>
-                    <p>Естественные способности:</p>
-                    <ul class="traits-list">
-                        <li>Импровизация</li>
-                        <li>Генерация идей</li>
-                        <li>Остроумие</li>
-                        <li>Гибкость мышления</li>
-                    </ul>
-                </div>
+                <h3><span class="emoji">💬</span>Коммуникативные способности</h3>
+                <p>Что дано от рождения:</p>
+                <ul class="traits-list">
+                    <li>Лёгкость в установлении контакта</li>
+                    <li>Чтение социальных сигналов</li>
+                    <li>Поддержание беседы</li>
+                    <li>Активное слушание</li>
+                </ul>
             </div>
-            
-            <!-- Правый столбец: упражнения -->
-            <div class="column right-column">
+            <!-- Упражнения 1 -->
+            <div class="item item-1">
+                <div class="item-number">1</div>
                 <h2>Программа развития</h2>
-                
-                <div class="item item-1" data-group="1">
-                    <div class="item-number">1</div>
-                    <h3><span class="emoji">🔗</span>Развитие коммуникабельности</h3>
-                    <div class="exercise">
-                        <h4>Упражнения для группы 1:</h4>
-                        <ul>
-                            <li><strong>Правило 3-х контактов</strong> — ежедневные беседы с незнакомцами</li>
-                            <li><strong>Активное слушание</strong> — минимум 3 уточняющих вопроса</li>
-                            <li><strong>Игра "Интервью"</strong> — беседа на незнакомую тему</li>
-                        </ul>
-                        <div class="checkbox">
-                            <input type="checkbox" id="comm1">
-                            <label for="comm1" class="checkbox-label">Выполнено</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item item-2" data-group="2">
-                    <div class="item-number">2</div>
-                    <h3><span class="emoji">👐</span>Тренировка эмоциональности</h3>
-                    <div class="exercise">
-                        <h4>Упражнения для группы 2:</h4>
-                        <ul>
-                            <li><strong>"Зеркало эмоций"</strong> — одна фраза, 5 настроений</li>
-                            <li><strong>Анализ жестов</strong> — запись и разбор видео</li>
-                            <li><strong>"Эмоциональный словарь"</strong> — описание предметов с разной окраской</li>
-                        </ul>
-                        <div class="checkbox">
-                            <input type="checkbox" id="emo1">
-                            <label for="emo1" class="checkbox-label">Выполнено</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item item-3" data-group="3">
-                    <div class="item-number">3</div>
-                    <h3><span class="emoji">🛡️</span>Повышение уверенности</h3>
-                    <div class="exercise">
-                        <h4>Упражнения для группы 3:</h4>
-                        <ul>
-                            <li><strong>"Минута смелости"</strong> — выход из зоны комфорта</li>
-                            <li><strong>Метод "5 почему"</strong> — анализ страхов</li>
-                            <li><strong>Игра "Провал"</strong> — преднамеренные ошибки</li>
-                        </ul>
-                        <div class="checkbox">
-                            <input type="checkbox" id="conf1">
-                            <label for="conf1" class="checkbox-label">Выполнено</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item item-4" data-group="4">
-                    <div class="item-number">4</div>
-                    <h3><span class="emoji">🎙️</span>Постановка голоса</h3>
-                    <div class="exercise">
-                        <h4>Упражнения для группы 4:</h4>
-                        <ul>
-                            <li><strong>"Дыхание спикера"</strong> — 5 минут диафрагмой</li>
-                            <li><strong>Скороговорки-марафон</strong> — 3 скороговорки × 5 раз</li>
-                            <li><strong>"Радиоведущий"</strong> — 10 минут непрерывной речи</li>
-                        </ul>
-                        <div class="checkbox">
-                            <input type="checkbox" id="voice1">
-                            <label for="voice1" class="checkbox-label">Выполнено</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="item item-5" data-group="5">
-                    <div class="item-number">5</div>
-                    <h3><span class="emoji">🎨</span>Развитие креативности</h3>
-                    <div class="exercise">
-                        <h4>Упражнения для группы 5:</h4>
-                        <ul>
-                            <li><strong>Метод "Да, и..."</strong> — развитие чужих идей</li>
-                            <li><strong>"Безумные связи"</strong> — соединение случайных предметов</li>
-                            <li><strong>Сторителлинг</strong> — мини-истории по случайному слову</li>
-                        </ul>
-                        <div class="checkbox">
-                            <input type="checkbox" id="crea1">
-                            <label for="crea1" class="checkbox-label">Выполнено</label>
-                        </div>
+                <h3><span class="emoji">🔗</span>Развитие коммуникабельности</h3>
+                <div class="exercise">
+                    <h4>Упражнения для группы 1:</h4>
+                    <ul>
+                        <li>
+                            <strong>Правило 3-х контактов</strong>
+                            <span class="exercise-details">Ежедневно вести 3 осмысленные беседы с незнакомыми людьми (например, кассир, коллега, сосед). Цель — задать минимум 2 вопроса и найти общую тему.</span>
+                        </li>
+                        <li>
+                            <strong>Активное слушание</strong>
+                            <span class="exercise-details">В каждой беседе задавать минимум 3 уточняющих вопроса ("Как ты это сделал?", "Почему ты так думаешь?", "Что ты имеешь в виду под...?"). Записывать ключевые моменты.</span>
+                        </li>
+                        <li>
+                            <strong>Игра "Интервью"</strong>
+                            <span class="exercise-details">Выбрать человека и провести с ним 10-минутное интервью на тему, в которой вы оба не являетесь экспертами. Задавать открытые вопросы.</span>
+                        </li>
+                        <li>
+                            <strong>Наблюдение за "сигналами"</strong>
+                            <span class="exercise-details">В следующем разговоре обратить внимание на 5 невербальных сигналов собеседника (мимика, жесты, тон голоса). Записать свои наблюдения и интерпретацию.</span>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <input type="checkbox" id="comm1">
+                        <label for="comm1" class="checkbox-label">Выполнено</label>
                     </div>
                 </div>
             </div>
-            
-            <!-- Соединительные линии -->
-            <div class="connector connector-1" style="top: 180px; left: 385px; width: 390px;"></div>
-            <div class="connector connector-2" style="top: 380px; left: 385px; width: 390px;"></div>
-            <div class="connector connector-3" style="top: 580px; left: 385px; width: 390px;"></div>
-            <div class="connector connector-4" style="top: 780px; left: 385px; width: 390px;"></div>
-            <div class="connector connector-5" style="top: 980px; left: 385px; width: 390px;"></div>
         </div>
-        
+
+        <!-- Пара 2 -->
+        <div class="pair">
+            <!-- Природные данные 2 -->
+            <div class="item item-2">
+                <div class="item-number">2</div>
+                <h2>Природные данные</h2>
+                <h3><span class="emoji">🎭</span>Эмоциональный интеллект</h3>
+                <p>Природные преимущества:</p>
+                <ul class="traits-list">
+                    <li>Выразительная мимика</li>
+                    <li>Естественная жестикуляция</li>
+                    <li>Эмоциональная заразительность</li>
+                    <li>Чувствование аудитории</li>
+                </ul>
+            </div>
+            <!-- Упражнения 2 -->
+            <div class="item item-2">
+                <div class="item-number">2</div>
+                <h2>Программа развития</h2>
+                <h3><span class="emoji">👐</span>Тренировка эмоциональности</h3>
+                <div class="exercise">
+                    <h4>Упражнения для группы 2:</h4>
+                    <ul>
+                        <li>
+                            <strong>"Зеркало эмоций"</strong>
+                            <span class="exercise-details">Выбрать одну нейтральную фразу (например, "Сегодня хорошая погода"). Произнести её с 5 разными эмоциями: радость, грусть, удивление, гнев, интерес. Записать ощущения.</span>
+                        </li>
+                        <li>
+                            <strong>Анализ жестов</strong>
+                            <span class="exercise-details">Записать на видео 2-минутную импровизацию на любую тему. Просмотреть запись, проанализировать жесты и мимику. Выписать 3 полезных и 2 отвлекающих жеста.</span>
+                        </li>
+                        <li>
+                            <strong>"Эмоциональный словарь"</strong>
+                            <span class="exercise-details">Описать 3 простых предмета (стол, дерево, кофе) с разной эмоциональной окраской (позитивной, нейтральной, негативной). Например: "Стол - мой верный друг" vs "Стол - просто кусок дерева".</span>
+                        </li>
+                        <li>
+                            <strong>Чтение эмоций по глазам</strong>
+                            <span class="exercise-details">Посмотреть 5 коротких видеороликов (не более 10 секунд) с людьми, говорящими на иностранном языке (без звука). Попытаться определить эмоцию. Затем включить звук и проверить себя.</span>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <input type="checkbox" id="emo1">
+                        <label for="emo1" class="checkbox-label">Выполнено</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пара 3 -->
+        <div class="pair">
+            <!-- Природные данные 3 -->
+            <div class="item item-3">
+                <div class="item-number">3</div>
+                <h2>Природные данные</h2>
+                <h3><span class="emoji">🦁</span>Уверенность</h3>
+                <p>Врождённые особенности:</p>
+                <ul class="traits-list">
+                    <li>Низкий страх оценки</li>
+                    <li>Комфорт в центре внимания</li>
+                    <li>Стрессоустойчивость</li>
+                    <li>Быстрое восстановление</li>
+                </ul>
+            </div>
+            <!-- Упражнения 3 -->
+            <div class="item item-3">
+                <div class="item-number">3</div>
+                <h2>Программа развития</h2>
+                <h3><span class="emoji">🛡️</span>Повышение уверенности</h3>
+                <div class="exercise">
+                    <h4>Упражнения для группы 3:</h4>
+                    <ul>
+                        <li>
+                            <strong>"Минута смелости"</strong>
+                            <span class="exercise-details">Ежедневно совершать одно действие, которое немного выходит из зоны комфорта (например, попросить скидку, спросить дорогу, сказать комплимент незнакомцу). Записывать результат.</span>
+                        </li>
+                        <li>
+                            <strong>Метод "5 почему"</strong>
+                            <span class="exercise-details">Определить одну конкретную ситуацию, где вы чувствуете страх или неуверенность. Задать себе вопрос "Почему?" 5 раз подряд, чтобы добраться до корня страха.</span>
+                        </li>
+                        <li>
+                            <strong>Игра "Провал"</strong>
+                            <span class="exercise-details">Специально допустить 2 небольшие ошибки в течение дня (например, назвать неправильное имя, забыть слово) и спокойно признать их. Обратить внимание на свою реакцию.</span>
+                        </li>
+                        <li>
+                            <strong>Поза силы</strong>
+                            <span class="exercise-details">Перед важной встречей или выступлением принять "позу силы" (Superman pose) на 2 минуты: стоя прямо, руки в боки или над головой. Оценить изменение настроения.</span>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <input type="checkbox" id="conf1">
+                        <label for="conf1" class="checkbox-label">Выполнено</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пара 4 -->
+        <div class="pair">
+            <!-- Природные данные 4 -->
+            <div class="item item-4">
+                <div class="item-number">4</div>
+                <h2>Природные данные</h2>
+                <h3><span class="emoji">🎤</span>Голосовые данные</h3>
+                <p>Природные характеристики:</p>
+                <ul class="traits-list">
+                    <li>Приятный тембр</li>
+                    <li>Хорошая дикция</li>
+                    <li>Широкий диапазон</li>
+                    <li>Выносливость связок</li>
+                </ul>
+            </div>
+            <!-- Упражнения 4 -->
+            <div class="item item-4">
+                <div class="item-number">4</div>
+                <h2>Программа развития</h2>
+                <h3><span class="emoji">🎙️</span>Постановка голоса</h3>
+                <div class="exercise">
+                    <h4>Упражнения для группы 4:</h4>
+                    <ul>
+                        <li>
+                            <strong>"Дыхание спикера"</strong>
+                            <span class="exercise-details">Ежедневно утром выполнять упражнение на диафрагмальное дыхание: 5 подходов по 1 минуте. Лечь на спину, положить руку на живот. Дышать только животом.</span>
+                        </li>
+                        <li>
+                            <strong>Скороговорки-марафон</strong>
+                            <span class="exercise-details">Выбрать 3 сложные скороговорки. Повторять каждую 5 раз: сначала медленно и четко, затем постепенно увеличивая скорость. Записать на диктофон и прослушать.</span>
+                        </li>
+                        <li>
+                            <strong>"Радиоведущий"</strong>
+                            <span class="exercise-details">Выбрать интересную статью. Рассказать её вслух в течение 10 минут, стараясь использовать разную интонацию, паузы и эмоциональные окраски голоса. Записать и проанализировать.</span>
+                        </li>
+                        <li>
+                            <strong>Упражнения на артикуляцию</strong>
+                            <span class="exercise-details">Выполнять ежедневно: "Лошадка" (высунуть язык, "цокать"), "Кошечка" (лизать верхнюю губу), "Бублик" (обвести языком губы), "Чашечка" (улыбка с открытым ртом).</span>
+                        </li>
+                        <li>
+                            <strong>Работа с тембром</strong>
+                            <span class="exercise-details">Прочитать одно и то же стихотворение 3 раза с разным тембром: как дедушка (низкий, медленный), как ребенок (высокий, игривый), как ведущий новостей (нейтральный, четкий).</span>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <input type="checkbox" id="voice1">
+                        <label for="voice1" class="checkbox-label">Выполнено</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пара 5 -->
+        <div class="pair">
+            <!-- Природные данные 5 -->
+            <div class="item item-5">
+                <div class="item-number">5</div>
+                <h2>Природные данные</h2>
+                <h3><span class="emoji">✨</span>Креативность</h3>
+                <p>Естественные способности:</p>
+                <ul class="traits-list">
+                    <li>Импровизация</li>
+                    <li>Генерация идей</li>
+                    <li>Остроумие</li>
+                    <li>Гибкость мышления</li>
+                </ul>
+            </div>
+            <!-- Упражнения 5 -->
+            <div class="item item-5">
+                <div class="item-number">5</div>
+                <h2>Программа развития</h2>
+                <h3><span class="emoji">🎨</span>Развитие креативности</h3>
+                <div class="exercise">
+                    <h4>Упражнения для группы 5:</h4>
+                    <ul>
+                        <li>
+                            <strong>Метод "Да, и..."</strong>
+                            <span class="exercise-details">Найти партнера. Один предлагает странный сценарий (например, "Кофе варят в микроволновке"). Второй отвечает "Да, и..." и продолжает развивать эту идею. Повторить 5 раз.</span>
+                        </li>
+                        <li>
+                            <strong>"Безумные связи"</strong>
+                            <span class="exercise-details">Выбрать 2 случайных предмета (например, "тостер" и "зонтик"). Придумать 3 способа их необычного применения вместе. Например: "тостер-зонтик для сушки белья".</span>
+                        </li>
+                        <li>
+                            <strong>Сторителлинг</strong>
+                            <span class="exercise-details">Взять 3 случайных слова (например, "луна", "ключ", "кот"). Написать 3-минутную историю, включающую все три слова. Затем рассказать эту историю вслух.</span>
+                        </li>
+                        <li>
+                            <strong>Мозговой штурм с ограничениями</strong>
+                            <span class="exercise-details">Выбрать проблему (например, "Как сделать урок интереснее?"). Придумать 10 идей, но с ограничением: каждая идея должна включать слово "игра".</span>
+                        </li>
+                        <li>
+                            <strong>Импровизация на тему</strong>
+                            <span class="exercise-details">Выбрать случайную фразу (например, "Моя бабушка была астронавтом"). Импровизировать 2 минуты на эту тему, не останавливаясь. Записать и прослушать.</span>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <input type="checkbox" id="crea1">
+                        <label for="crea1" class="checkbox-label">Выполнено</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            <p>© 2024 Школа ораторского мастерства | Каждая пара блоков связана цветом и номером</p>
+            <p>© 2024 Школа ораторского мастерства | Каждая пара блоков следует друг за другом</p>
         </footer>
     </div>
-    
-    <script>
-        // Добавляем анимацию при наведении на связанные блоки
-        document.querySelectorAll('.item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                const group = this.getAttribute('data-group');
-                document.querySelectorAll(`.item-${group}`).forEach(el => {
-                    el.style.transform = 'translateY(-7px)';
-                    el.style.boxShadow = '0 12px 20px rgba(0, 0, 0, 0.15)';
-                });
-                
-                // Подсветка соединительной линии
-                const connector = document.querySelector(`.connector-${group}`);
-                if (connector) connector.style.opacity = '0.8';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                const group = this.getAttribute('data-group');
-                document.querySelectorAll(`.item-${group}`).forEach(el => {
-                    el.style.transform = '';
-                    el.style.boxShadow = '';
-                });
-                
-                const connector = document.querySelector(`.connector-${group}`);
-                if (connector) connector.style.opacity = '0.3';
-            });
-        });
-    </script>
 </body>
 </html>
+```
