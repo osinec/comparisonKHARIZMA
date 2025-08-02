@@ -3,519 +3,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ораторское мастерство | Развитие навыков</title>
+    <title>Ораторское мастерство | Связанная система развития</title>
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #f72585;
-            --accent: #4cc9f0;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
+            --primary-1: #5b6cc3;
+            --primary-2: #7c3aed;
+            --primary-3: #9f7aea;
+            --primary-4: #667eea;
+            --primary-5: #764abc;
+            --text: #2d3748;
+            --text-light: #4a5568;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
         
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #f0f2f5;
-            color: var(--dark);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
+            position: relative;
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), #3a0ca3);
-            color: white;
-            padding: 2rem 0;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-2), var(--primary-4));
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hover);
         }
         
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        h1::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
+            font-weight: 300;
         }
         
-        /* Мобильная версия */
-        .mobile-pairs {
+        .content {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: 40px;
+            margin-bottom: 50px;
         }
         
-        .skill-pair {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .skill-pair:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-        }
-        
-        .pair-header {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem;
-            font-weight: 600;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .pair-header svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-        
-        .trait-card, .technique-card {
-            padding: 1.5rem;
-        }
-        
-        .trait-card {
-            border-bottom: 2px dashed rgba(67, 97, 238, 0.2);
+        .column {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
             position: relative;
+            z-index: 1;
         }
         
-        .trait-card::after {
-            content: "↓";
+        .column h2 {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .left-column h2 {
+            color: var(--primary-2);
+        }
+        
+        .right-column h2 {
+            color: var(--primary-4);
+        }
+        
+        .item {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            border: 1px solid #edf2f7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* Цветовые схемы для парных блоков */
+        .item-1 {
+            border-top: 4px solid var(--primary-1);
+        }
+        .item-1:hover {
+            border-color: var(--primary-1);
+        }
+        
+        .item-2 {
+            border-top: 4px solid var(--primary-2);
+        }
+        .item-2:hover {
+            border-color: var(--primary-2);
+        }
+        
+        .item-3 {
+            border-top: 4px solid var(--primary-3);
+        }
+        .item-3:hover {
+            border-color: var(--primary-3);
+        }
+        
+        .item-4 {
+            border-top: 4px solid var(--primary-4);
+        }
+        .item-4:hover {
+            border-color: var(--primary-4);
+        }
+        
+        .item-5 {
+            border-top: 4px solid var(--primary-5);
+        }
+        .item-5:hover {
+            border-color: var(--primary-5);
+        }
+        
+        .item-number {
             position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
+            top: -12px;
+            left: 20px;
             background: white;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: var(--primary);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            z-index: 2;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
-        .technique-card {
-            background-color: rgba(247, 37, 133, 0.03);
+        .item-1 .item-number {
+            background: var(--primary-1);
+            color: white;
         }
         
-        .card-title {
+        .item-2 .item-number {
+            background: var(--primary-2);
+            color: white;
+        }
+        
+        .item-3 .item-number {
+            background: var(--primary-3);
+            color: white;
+        }
+        
+        .item-4 .item-number {
+            background: var(--primary-4);
+            color: white;
+        }
+        
+        .item-5 .item-number {
+            background: var(--primary-5);
+            color: white;
+        }
+        
+        .item h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            color: var(--dark);
+            padding-left: 10px;
         }
         
-        .trait-card .card-title {
-            color: var(--primary);
+        .item h3 .emoji {
+            margin-right: 10px;
+            font-size: 1.2em;
         }
         
-        .technique-card .card-title {
-            color: var(--secondary);
+        .item p {
+            color: var(--text-light);
+            margin-bottom: 15px;
         }
         
-        .card-title svg {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
+        .traits-list {
+            list-style-type: none;
+            margin-bottom: 15px;
         }
         
-        .card-content {
-            margin-bottom: 1rem;
-            color: var(--dark);
+        .traits-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-light);
         }
         
-        .card-details {
-            background: rgba(0, 0, 0, 0.02);
+        .traits-list li:before {
+            content: "•";
+            color: var(--primary-2);
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+        }
+        
+        .exercise {
+            padding: 16px;
+            margin-top: 15px;
             border-radius: 8px;
-            padding: 1rem;
-            font-size: 0.95rem;
+            position: relative;
         }
         
-        .card-details strong {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--gray);
+        .item-1 .exercise {
+            background: rgba(91, 108, 195, 0.08);
+            border-left: 4px solid var(--primary-1);
+        }
+        
+        .item-2 .exercise {
+            background: rgba(124, 58, 237, 0.08);
+            border-left: 4px solid var(--primary-2);
+        }
+        
+        .item-3 .exercise {
+            background: rgba(159, 122, 234, 0.08);
+            border-left: 4px solid var(--primary-3);
+        }
+        
+        .item-4 .exercise {
+            background: rgba(102, 126, 234, 0.08);
+            border-left: 4px solid var(--primary-4);
+        }
+        
+        .item-5 .exercise {
+            background: rgba(118, 74, 188, 0.08);
+            border-left: 4px solid var(--primary-5);
+        }
+        
+        .exercise h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .item-1 .exercise h4 {
+            color: var(--primary-1);
+        }
+        
+        .item-2 .exercise h4 {
+            color: var(--primary-2);
+        }
+        
+        .item-3 .exercise h4 {
+            color: var(--primary-3);
+        }
+        
+        .item-4 .exercise h4 {
+            color: var(--primary-4);
+        }
+        
+        .item-5 .exercise h4 {
+            color: var(--primary-5);
+        }
+        
+        .exercise ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .exercise li {
+            margin-bottom: 8px;
+        }
+        
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .checkbox input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Соединительные линии (только для десктопа) */
+        @media (min-width: 769px) {
+            .connector {
+                position: absolute;
+                background: linear-gradient(to right, var(--from-color), var(--to-color));
+                height: 2px;
+                z-index: 0;
+                opacity: 0.3;
+            }
+            
+            .connector-1 {
+                --from-color: var(--primary-1);
+                --to-color: var(--primary-1);
+            }
+            
+            .connector-2 {
+                --from-color: var(--primary-2);
+                --to-color: var(--primary-2);
+            }
+            
+            .connector-3 {
+                --from-color: var(--primary-3);
+                --to-color: var(--primary-3);
+            }
+            
+            .connector-4 {
+                --from-color: var(--primary-4);
+                --to-color: var(--primary-4);
+            }
+            
+            .connector-5 {
+                --from-color: var(--primary-5);
+                --to-color: var(--primary-5);
+            }
         }
         
         footer {
-            background: linear-gradient(135deg, var(--dark), #343a40);
-            color: white;
-            padding: 2rem 0;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 60px;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 0.95rem;
         }
         
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .footer-quote {
-            font-style: italic;
-            opacity: 0.8;
-            margin-top: 1rem;
-            position: relative;
-            padding-top: 1rem;
-        }
-        
-        .footer-quote::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-        }
-        
-        /* Десктопная версия */
-        @media (min-width: 992px) {
-            .mobile-pairs {
-                display: none;
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                gap: 30px;
             }
             
-            .desktop-columns {
-                display: flex;
-                gap: 2rem;
-                margin-bottom: 3rem;
+            h1 {
+                font-size: 2rem;
             }
             
-            .desktop-column {
-                flex: 1;
-                background: white;
-                border-radius: 16px;
-                padding: 2rem;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            .item {
+                margin-bottom: 20px;
             }
             
-            .desktop-column-left {
-                border-top: 4px solid var(--primary);
-            }
-            
-            .desktop-column-right {
-                border-top: 4px solid var(--secondary);
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-                margin-bottom: 1.5rem;
-                text-align: center;
-                position: relative;
-                padding-bottom: 1rem;
-            }
-            
-            .section-title::after {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 60px;
-                height: 3px;
-                background: currentColor;
-                border-radius: 3px;
-            }
-            
-            .desktop-trait, .desktop-technique {
-                margin-bottom: 2rem;
-                padding: 1.5rem;
-                border-radius: 12px;
-                transition: transform 0.3s ease;
-            }
-            
-            .desktop-trait:hover, .desktop-technique:hover {
-                transform: translateY(-5px);
-            }
-            
-            .desktop-trait {
-                background: rgba(67, 97, 238, 0.05);
-                border-left: 4px solid var(--primary);
-            }
-            
-            .desktop-technique {
-                background: rgba(247, 37, 133, 0.05);
-                border-left: 4px solid var(--secondary);
-            }
-            
-            .connection-line {
-                position: absolute;
-                height: 2px;
-                background: linear-gradient(90deg, var(--primary), var(--secondary));
-                transform-origin: left center;
-                z-index: 1;
-                opacity: 0.6;
+            /* На мобильных показываем номер группы */
+            .item:before {
+                content: "Группа " attr(data-group);
+                display: block;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: var(--text);
             }
         }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .skill-pair {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .skill-pair:nth-child(1) { animation-delay: 0.1s; }
-        .skill-pair:nth-child(2) { animation-delay: 0.2s; }
-        .skill-pair:nth-child(3) { animation-delay: 0.3s; }
-        .skill-pair:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Искусство публичных выступлений</h1>
-            <p class="subtitle">Развивайте природные способности или освойте техники великих ораторов</p>
-        </div>
-    </header>
-    
     <div class="container">
-        <!-- Мобильная версия -->
-        <div class="mobile-pairs">
-            <div class="skill-pair" style="animation-delay: 0.1s;">
-                <div class="pair-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    Природный талант → Техника развития
+        <header>
+            <h1>Система развития оратора</h1>
+            <p class="subtitle">Качества → Упражнения: визуальная связь</p>
+        </header>
+        
+        <div class="content">
+            <!-- Левый столбец: врождённые качества -->
+            <div class="column left-column">
+                <h2>Природные данные</h2>
+                
+                <div class="item item-1" data-group="1">
+                    <div class="item-number">1</div>
+                    <h3><span class="emoji">💬</span>Коммуникативные способности</h3>
+                    <p>Что дано от рождения:</p>
+                    <ul class="traits-list">
+                        <li>Лёгкость в установлении контакта</li>
+                        <li>Чтение социальных сигналов</li>
+                        <li>Поддержание беседы</li>
+                        <li>Активное слушание</li>
+                    </ul>
                 </div>
-                <div class="trait-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                        Четкая дикция
-                    </h3>
-                    <div class="card-content">
-                        <p>Природная способность четко артикулировать звуки без дефектов речи. Ваши слова легко разобрать даже в шумном помещении.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Пример:</strong>
-                        <p>Вы можете быстро и четко произнести: "Шла Саша по шоссе и сосала сушку" без ошибок и запинок.</p>
+                
+                <div class="item item-2" data-group="2">
+                    <div class="item-number">2</div>
+                    <h3><span class="emoji">🎭</span>Эмоциональный интеллект</h3>
+                    <p>Природные преимущества:</p>
+                    <ul class="traits-list">
+                        <li>Выразительная мимика</li>
+                        <li>Естественная жестикуляция</li>
+                        <li>Эмоциональная заразительность</li>
+                        <li>Чувствование аудитории</li>
+                    </ul>
+                </div>
+                
+                <div class="item item-3" data-group="3">
+                    <div class="item-number">3</div>
+                    <h3><span class="emoji">🦁</span>Уверенность</h3>
+                    <p>Врождённые особенности:</p>
+                    <ul class="traits-list">
+                        <li>Низкий страх оценки</li>
+                        <li>Комфорт в центре внимания</li>
+                        <li>Стрессоустойчивость</li>
+                        <li>Быстрое восстановление</li>
+                    </ul>
+                </div>
+                
+                <div class="item item-4" data-group="4">
+                    <div class="item-number">4</div>
+                    <h3><span class="emoji">🎤</span>Голосовые данные</h3>
+                    <p>Природные характеристики:</p>
+                    <ul class="traits-list">
+                        <li>Приятный тембр</li>
+                        <li>Хорошая дикция</li>
+                        <li>Широкий диапазон</li>
+                        <li>Выносливость связок</li>
+                    </ul>
+                </div>
+                
+                <div class="item item-5" data-group="5">
+                    <div class="item-number">5</div>
+                    <h3><span class="emoji">✨</span>Креативность</h3>
+                    <p>Естественные способности:</p>
+                    <ul class="traits-list">
+                        <li>Импровизация</li>
+                        <li>Генерация идей</li>
+                        <li>Остроумие</li>
+                        <li>Гибкость мышления</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Правый столбец: упражнения -->
+            <div class="column right-column">
+                <h2>Программа развития</h2>
+                
+                <div class="item item-1" data-group="1">
+                    <div class="item-number">1</div>
+                    <h3><span class="emoji">🔗</span>Развитие коммуникабельности</h3>
+                    <div class="exercise">
+                        <h4>Упражнения для группы 1:</h4>
+                        <ul>
+                            <li><strong>Правило 3-х контактов</strong> — ежедневные беседы с незнакомцами</li>
+                            <li><strong>Активное слушание</strong> — минимум 3 уточняющих вопроса</li>
+                            <li><strong>Игра "Интервью"</strong> — беседа на незнакомую тему</li>
+                        </ul>
+                        <div class="checkbox">
+                            <input type="checkbox" id="comm1">
+                            <label for="comm1" class="checkbox-label">Выполнено</label>
+                        </div>
                     </div>
                 </div>
-                <div class="technique-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        Тренировка артикуляции
-                    </h3>
-                    <div class="card-content">
-                        <p>Система упражнений для улучшения дикции, которые можно практиковать самостоятельно.</p>
+                
+                <div class="item item-2" data-group="2">
+                    <div class="item-number">2</div>
+                    <h3><span class="emoji">👐</span>Тренировка эмоциональности</h3>
+                    <div class="exercise">
+                        <h4>Упражнения для группы 2:</h4>
+                        <ul>
+                            <li><strong>"Зеркало эмоций"</strong> — одна фраза, 5 настроений</li>
+                            <li><strong>Анализ жестов</strong> — запись и разбор видео</li>
+                            <li><strong>"Эмоциональный словарь"</strong> — описание предметов с разной окраской</li>
+                        </ul>
+                        <div class="checkbox">
+                            <input type="checkbox" id="emo1">
+                            <label for="emo1" class="checkbox-label">Выполнено</label>
+                        </div>
                     </div>
-                    <div class="card-details">
-                        <strong>Практика:</strong>
-                        <ol>
-                            <li>Артикуляционная гимнастика (10 мин/день)</li>
-                            <li>Чтение вслух с пробкой во рту</li>
-                            <li>Скороговорки с разной скоростью</li>
-                            <li>Запись и анализ своей речи</li>
-                        </ol>
+                </div>
+                
+                <div class="item item-3" data-group="3">
+                    <div class="item-number">3</div>
+                    <h3><span class="emoji">🛡️</span>Повышение уверенности</h3>
+                    <div class="exercise">
+                        <h4>Упражнения для группы 3:</h4>
+                        <ul>
+                            <li><strong>"Минута смелости"</strong> — выход из зоны комфорта</li>
+                            <li><strong>Метод "5 почему"</strong> — анализ страхов</li>
+                            <li><strong>Игра "Провал"</strong> — преднамеренные ошибки</li>
+                        </ul>
+                        <div class="checkbox">
+                            <input type="checkbox" id="conf1">
+                            <label for="conf1" class="checkbox-label">Выполнено</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item item-4" data-group="4">
+                    <div class="item-number">4</div>
+                    <h3><span class="emoji">🎙️</span>Постановка голоса</h3>
+                    <div class="exercise">
+                        <h4>Упражнения для группы 4:</h4>
+                        <ul>
+                            <li><strong>"Дыхание спикера"</strong> — 5 минут диафрагмой</li>
+                            <li><strong>Скороговорки-марафон</strong> — 3 скороговорки × 5 раз</li>
+                            <li><strong>"Радиоведущий"</strong> — 10 минут непрерывной речи</li>
+                        </ul>
+                        <div class="checkbox">
+                            <input type="checkbox" id="voice1">
+                            <label for="voice1" class="checkbox-label">Выполнено</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item item-5" data-group="5">
+                    <div class="item-number">5</div>
+                    <h3><span class="emoji">🎨</span>Развитие креативности</h3>
+                    <div class="exercise">
+                        <h4>Упражнения для группы 5:</h4>
+                        <ul>
+                            <li><strong>Метод "Да, и..."</strong> — развитие чужих идей</li>
+                            <li><strong>"Безумные связи"</strong> — соединение случайных предметов</li>
+                            <li><strong>Сторителлинг</strong> — мини-истории по случайному слову</li>
+                        </ul>
+                        <div class="checkbox">
+                            <input type="checkbox" id="crea1">
+                            <label for="crea1" class="checkbox-label">Выполнено</label>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="skill-pair" style="animation-delay: 0.2s;">
-                <div class="pair-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    Природный талант → Техника развития
-                </div>
-                <div class="trait-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                        Приятный тембр
-                    </h3>
-                    <div class="card-content">
-                        <p>Ваш голос от природы обладает богатым звучанием с хорошими модуляциями. Он приятен на слух и не вызывает раздражения.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Пример:</strong>
-                        <p>Ваш голос сохраняет приятное звучание даже после долгого говорения, без хрипоты или напряжения.</p>
-                    </div>
-                </div>
-                <div class="technique-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                        Постановка голоса
-                    </h3>
-                    <div class="card-content">
-                        <p>Методики развития голоса, которые помогут сделать его более выразительным и выносливым.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Практика:</strong>
-                        <ol>
-                            <li>Дыхание диафрагмой (книга на животе)</li>
-                            <li>Упражнения на резонаторы ("мычание")</li>
-                            <li>Пение гамм для расширения диапазона</li>
-                            <li>Анализ записей своего голоса</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="skill-pair" style="animation-delay: 0.3s;">
-                <div class="pair-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    Природный талант → Техника развития
-                </div>
-                <div class="trait-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 5c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm-2 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6-5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-4-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-8-3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                        Естественные жесты
-                    </h3>
-                    <div class="card-content">
-                        <p>Ваши движения руками органично дополняют речь, подчеркивая ключевые моменты без излишней театральности.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Пример:</strong>
-                        <p>Когда вы говорите, ваши руки сами находят правильное положение, жесты выглядят естественно и уместно.</p>
-                    </div>
-                </div>
-                <div class="technique-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8 15c0-1.66 1.34-3 3-3 .35 0 .69.07 1 .18V6h5v2h-3v7.03c-.02 1.64-1.35 2.97-3 2.97-1.66 0-3-1.34-3-3z"/></svg>
-                        Осознанная жестикуляция
-                    </h3>
-                    <div class="card-content">
-                        <p>Техники для развития выразительных жестов, которые помогут сделать ваши выступления более эффектными.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Практика:</strong>
-                        <ol>
-                            <li>Анализ жестов TED-спикеров</li>
-                            <li>Репетиция перед зеркалом</li>
-                            <li>Видеозапись и анализ своих выступлений</li>
-                            <li>Якорные жесты для ключевых моментов</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="skill-pair" style="animation-delay: 0.4s;">
-                <div class="pair-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    Природный талант → Техника развития
-                </div>
-                <div class="trait-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1zm0-14v4h2V5.08c3.39.49 6 3.39 6 6.92 0 3.87-3.13 7-7 7s-7-3.13-7-7c0-1.68.59-3.22 1.58-4.42L12 13l1.41-1.41-6.8-6.8v.02C4.42 6.45 3 9.05 3 12c0 4.97 4.02 9 9 9 4.97 0 9-4.03 9-9s-4.03-9-9-9h-1zm7 9c0-.55-.45-1-1-1s-1 .45-1 1 .45 1 1 1 1-.45 1-1zM6 12c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1z"/></svg>
-                        Чувство ритма
-                    </h3>
-                    <div class="card-content">
-                        <p>Вы интуитивно чувствуете, когда нужно сделать паузу, ускориться или замедлиться для максимального эффекта.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Пример:</strong>
-                        <p>Ваша речь имеет естественные волны напряжения и расслабления, которые удерживают внимание слушателей.</p>
-                    </div>
-                </div>
-                <div class="technique-card">
-                    <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                        Работа с ритмом
-                    </h3>
-                    <div class="card-content">
-                        <p>Упражнения для развития чувства ритма и управления темпом речи.</p>
-                    </div>
-                    <div class="card-details">
-                        <strong>Практика:</strong>
-                        <ol>
-                            <li>Чтение текстов под метроном</li>
-                            <li>Сознательные паузы (2-3 секунды)</li>
-                            <li>Выделение ключевых слов интонацией</li>
-                            <li>Анализ ритмических паттернов ораторов</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+            <!-- Соединительные линии -->
+            <div class="connector connector-1" style="top: 180px; left: 385px; width: 390px;"></div>
+            <div class="connector connector-2" style="top: 380px; left: 385px; width: 390px;"></div>
+            <div class="connector connector-3" style="top: 580px; left: 385px; width: 390px;"></div>
+            <div class="connector connector-4" style="top: 780px; left: 385px; width: 390px;"></div>
+            <div class="connector connector-5" style="top: 980px; left: 385px; width: 390px;"></div>
         </div>
         
-        <!-- Десктопная версия (скрыта на мобильных) -->
-        <div class="desktop-columns">
-            <!-- ... (десктопный контент из предыдущих версий) ... -->
-        </div>
+        <footer>
+            <p>© 2024 Школа ораторского мастерства | Каждая пара блоков связана цветом и номером</p>
+        </footer>
     </div>
     
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>© 2023 Школа ораторского мастерства "Вербальная магия"</p>
-                <p class="footer-quote">"Сначала вы работаете на свою репутацию, потом репутация работает на вас"</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        // Анимация при наведении на мобильных устройствах
-        if (window.innerWidth < 992) {
-            const skillPairs = document.querySelectorAll('.skill-pair');
-            
-            skillPairs.forEach(pair => {
-                pair.addEventListener('click', function() {
-                    this.classList.toggle('active');
+        // Добавляем анимацию при наведении на связанные блоки
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const group = this.getAttribute('data-group');
+                document.querySelectorAll(`.item-${group}`).forEach(el => {
+                    el.style.transform = 'translateY(-7px)';
+                    el.style.boxShadow = '0 12px 20px rgba(0, 0, 0, 0.15)';
                 });
+                
+                // Подсветка соединительной линии
+                const connector = document.querySelector(`.connector-${group}`);
+                if (connector) connector.style.opacity = '0.8';
             });
-        }
-        
-        // Десктопные функции (линии соединения и hover-эффекты)
-        if (window.innerWidth >= 992) {
-            // ... (десктопный JavaScript из предыдущих версий) ...
-        }
+            
+            item.addEventListener('mouseleave', function() {
+                const group = this.getAttribute('data-group');
+                document.querySelectorAll(`.item-${group}`).forEach(el => {
+                    el.style.transform = '';
+                    el.style.boxShadow = '';
+                });
+                
+                const connector = document.querySelector(`.connector-${group}`);
+                if (connector) connector.style.opacity = '0.3';
+            });
+        });
     </script>
 </body>
 </html>
