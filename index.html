@@ -1,160 +1,489 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Чек-лист для подготовки к выступлению</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    .container {
-      text-align: center;
-      max-width: 500px;
-      padding: 30px;
-      background: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      font-size: 1.8rem;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    p {
-      color: #555;
-      margin-bottom: 30px;
-      font-size: 1.1rem;
-    }
-    .download-button {
-      display: inline-block;
-      padding: 15px 30px;
-      background: #f72585;
-      color: white;
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
-    }
-    .download-button:hover {
-      background: #e5177e;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
-    }
-    .download-button:active {
-      transform: translateY(0);
-    }
-
-    /* Модальное окно */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-    }
-    .modal-content {
-      background-color: transparent;
-      margin: 3% auto;
-      padding: 20px;
-      border: none;
-      border-radius: 0;
-      width: 90%;
-      max-width: 800px;
-      box-shadow: none;
-      text-align: center;
-    }
-    .modal-content img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-    .close {
-      color: white;
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 32px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1001;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-    .close:hover {
-      color: #f72585;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Развитие ораторских способностей</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --accent-color: #6c757d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .columns {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .column {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .column:hover {
+            transform: translateY(-5px);
+        }
+        
+        .column-left {
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        .column-right {
+            border-top: 5px solid var(--secondary-color);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #eee;
+            text-align: center;
+        }
+        
+        .column-right h2 {
+            color: var(--secondary-color);
+        }
+        
+        .trait, .technique {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .trait {
+            background-color: rgba(74, 111, 165, 0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .technique {
+            background-color: rgba(255, 126, 95, 0.05);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .trait:hover, .technique:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .trait h3::before {
+            content: "🗣️ ";
+            color: var(--primary-color);
+        }
+        
+        .technique h3::before {
+            content: "💡 ";
+            color: var(--secondary-color);
+        }
+        
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transform-origin: left center;
+            z-index: 0;
+            opacity: 0.7;
+        }
+        
+        .connection-line::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            left: 0;
+            top: -4px;
+        }
+        
+        .connection-line::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            right: 0;
+            top: -4px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--dark-color);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: 40px;
+        }
+        
+        .trait-content, .technique-content {
+            margin-bottom: 15px;
+        }
+        
+        .trait-examples, .technique-steps {
+            font-size: 0.9em;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .trait-examples {
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .technique-steps {
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .columns {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .connection-line {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Основная страница -->
-  <div class="container">
-    <h1>Чек-лист для выступления</h1>
-    <p>Готовый шаблон для подготовки публичного выступления</p>
-    <button class="download-button" onclick="openFullScreenImage()">
-      📷 Открыть чек-лист на весь экран
-    </button>
-  </div>
-
-  <!-- Модальное окно для изображения -->
-  <div id="imageModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
-      <img id="fullScreenImg" src="" alt="Чек-лист">
+    <header>
+        <div class="container">
+            <h1>Искусство публичных выступлений</h1>
+            <div class="subtitle">Раскройте свой потенциал или научитесь эффективно выступать</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column column-left">
+                <h2>Природные задатки оратора</h2>
+                
+                <div class="trait" id="trait1">
+                    <h3>Хорошая дикция и артикуляция</h3>
+                    <div class="trait-content">
+                        <p>Четкое произношение звуков и слов без дефектов речи, хорошая артикуляция даже в быстром темпе. Такие люди не "глотают" окончания, их речь легко разобрать даже в шумном помещении.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Человек с хорошей дикцией может четко произнести скороговорку "Шла Саша по шоссе и сосала сушку" с первого раза без ошибок.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait2">
+                    <h3>Приятный тембр голоса</h3>
+                    <div class="trait-content">
+                        <p>Голос от природы обладает приятным звучанием, достаточной силой и диапазоном. Такой голос не вызывает раздражения, его приятно слушать длительное время.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Глубокий, бархатистый голос с естественными модуляциями, который привлекает внимание без необходимости повышать громкость.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait3">
+                    <h3>Естественная жестикуляция</h3>
+                    <div class="trait-content">
+                        <p>Жесты гармонично дополняют речь, выглядят органично и не вызывают напряжения. Движения рук подчеркивают ключевые моменты, не отвлекая от содержания.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Спонтанные, но уместные движения руками, которые появляются в эмоциональных моментах рассказа и замирают в паузах.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait4">
+                    <h3>Хорошее чувство ритма</h3>
+                    <div class="trait-content">
+                        <p>Способность чувствовать и поддерживать ритм речи, делать паузы в нужных местах. Такие люди интуитивно понимают, когда нужно ускориться, а когда замедлиться для эффекта.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Умение сделать драматическую паузу перед ключевой фразой или ускорить темп при описании динамичных событий.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait5">
+                    <h3>Эмпатия и понимание аудитории</h3>
+                    <div class="trait-content">
+                        <p>Интуитивное понимание настроения слушателей и способность подстраиваться под них. Оратор чувствует, когда аудитория устала, заскучала или, наоборот, увлечена.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Способность заметить, что слушатели начинают отвлекаться, и вставить шутку или интересный пример, чтобы вернуть их внимание.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait6">
+                    <h3>Низкий уровень тревожности</h3>
+                    <div class="trait-content">
+                        <p>Отсутствие сильного страха перед публичными выступлениями, спокойствие перед аудиторией. Такие люди не испытывают паники, дрожи в голосе или "ватных" ног при выходе на сцену.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Спокойное, уверенное поведение даже при неожиданных вопросах или технических проблемах во время выступления.
+                    </div>
+                </div>
+                
+                <div class="trait" id="trait7">
+                    <h3>Быстрота мышления</h3>
+                    <div class="trait-content">
+                        <p>Способность быстро формулировать мысли и импровизировать в ответ на вопросы. Оратор может плавно выйти из затруднительной ситуации, превратив ее в преимущество.</p>
+                    </div>
+                    <div class="trait-examples">
+                        <strong>Пример:</strong> Умение красиво ответить на неожиданный или провокационный вопрос, превратив его в возможность подчеркнуть свою точку зрения.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column column-right">
+                <h2>Техники развития и компенсации</h2>
+                
+                <div class="technique" id="tech1">
+                    <h3>Упражнения для дикции</h3>
+                    <div class="technique-content">
+                        <p>Регулярные тренировки могут значительно улучшить четкость речи даже при отсутствии природных данных:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Артикуляционная гимнастика (10 мин в день)<br>
+                        2. Чтение вслух с пробкой во рту (5-10 мин)<br>
+                        3. Проговаривание скороговорок с разной скоростью<br>
+                        4. Запись своей речи и анализ проблемных звуков
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech2">
+                    <h3>Постановка голоса</h3>
+                    <div class="technique-content">
+                        <p>Даже если ваш голос от природы не идеален, его можно значительно улучшить специальными упражнениями:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Диафрагмальное дыхание (лежа с книгой на животе)<br>
+                        2. Упражнения на резонаторы ("мычание" с закрытым ртом)<br>
+                        3. Работа с диапазоном (пение гамм)<br>
+                        4. Записи и анализ своего голоса в разных регистрах
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech3">
+                    <h3>Осознанные жесты</h3>
+                    <div class="technique-content">
+                        <p>Жестикуляцию можно сделать естественной и выразительной с помощью практики:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Анализ жестов любимых ораторов (TED Talks)<br>
+                        2. Репетиция перед зеркалом с акцентом на руки<br>
+                        3. Видеозапись своих выступлений и анализ<br>
+                        4. Использование "якорных" жестов для ключевых моментов
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech4">
+                    <h3>Работа с ритмом речи</h3>
+                    <div class="technique-content">
+                        <p>Чувство ритма можно развить, даже если оно не дано от природы:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Чтение текстов под метроном (начните с 60 уд/мин)<br>
+                        2. Сознательное выделение паузами ключевых слов<br>
+                        3. Подсчет секунд в паузах (2-3 сек для акцента)<br>
+                        4. Анализ ритмических паттернов у опытных ораторов
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech5">
+                    <h3>Изучение аудитории</h3>
+                    <div class="technique-content">
+                        <p>Эмпатию к аудитории можно развить системным подходом:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Предварительный опрос организаторов о составе аудитории<br>
+                        2. Наблюдение за реакцией первых рядов во время выступления<br>
+                        3. Вовлекающие вопросы для "пробы почвы"<br>
+                        4. Анализ успешных и неудачных моментов после выступления
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech6">
+                    <h3>Преодоление страха</h3>
+                    <div class="technique-content">
+                        <p>Страх публичных выступлений можно уменьшить постепенной экспозицией:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Метод "малых шагов" (сначала 2-3 человека)<br>
+                        2. Техника "5-5-5" (5 сек перед началом успокоить дыхание)<br>
+                        3. Визуализация успешного выступления<br>
+                        4. Физические упражнения перед выходом для снятия напряжения
+                    </div>
+                </div>
+                
+                <div class="technique" id="tech7">
+                    <h3>Структурирование речи</h3>
+                    <div class="technique-content">
+                        <p>Четкая структура компенсирует необходимость быстрой импровизации:</p>
+                    </div>
+                    <div class="technique-steps">
+                        <strong>Как практиковать:</strong><br>
+                        1. Метод "карты выступления" (основные тезисы + примеры)<br>
+                        2. Правило "3-х частей" (введение-основная часть-заключение)<br>
+                        3. Подготовка переходов между блоками<br>
+                        4. Репетиция с таймером для контроля времени
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Школа ораторского мастерства. Все права защищены.</p>
+            <p>Помните: даже самые великие ораторы когда-то начинали с малого!</p>
+        </div>
+    </footer>
 
-  <script>
-    // Функция открытия полноэкранного изображения
-    function openFullScreenImage() {
-      const modal = document.getElementById('imageModal');
-      const img = document.getElementById('fullScreenImg');
-
-      // Ссылка на изображение
-      const imageUrl = 'https://disk.yandex.ru/i/st8tL50DQASlSg';
-
-      // Попытка загрузить изображение
-      img.onload = () => {
-        console.log('Изображение загружено успешно');
-        modal.style.display = 'block';
-      };
-
-      img.onerror = () => {
-        alert('Ошибка загрузки изображения. Попробуйте открыть ссылку вручную.');
-        window.open(imageUrl, '_blank');
-        closeModal();
-      };
-
-      // Установка исходной ссылки
-      img.src = imageUrl;
-    }
-
-    // Функция закрытия модального окна
-    function closeModal() {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-
-    // Закрытие по Esc
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    });
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth > 768) {
+                createConnectionLines();
+                
+                // Анимация при наведении на элемент
+                const traits = document.querySelectorAll('.trait');
+                traits.forEach(trait => {
+                    trait.addEventListener('mouseenter', function() {
+                        const techId = this.id.replace('trait', 'tech');
+                        const techElement = document.getElementById(techId);
+                        if (techElement) {
+                            techElement.style.transform = 'scale(1.05)';
+                            techElement.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15)';
+                        }
+                    });
+                    
+                    trait.addEventListener('mouseleave', function() {
+                        const techId = this.id.replace('trait', 'tech');
+                        const techElement = document.getElementById(techId);
+                        if (techElement) {
+                            techElement.style.transform = '';
+                            techElement.style.boxShadow = '';
+                        }
+                    });
+                });
+                
+                const techniques = document.querySelectorAll('.technique');
+                techniques.forEach(tech => {
+                    tech.addEventListener('mouseenter', function() {
+                        const traitId = this.id.replace('tech', 'trait');
+                        const traitElement = document.getElementById(traitId);
+                        if (traitElement) {
+                            traitElement.style.transform = 'scale(1.05)';
+                            traitElement.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15)';
+                        }
+                    });
+                    
+                    tech.addEventListener('mouseleave', function() {
+                        const traitId = this.id.replace('tech', 'trait');
+                        const traitElement = document.getElementById(traitId);
+                        if (traitElement) {
+                            traitElement.style.transform = '';
+                            traitElement.style.boxShadow = '';
+                        }
+                    });
+                });
+            }
+        });
+        
+        function createConnectionLines() {
+            const container = document.querySelector('.columns');
+            
+            for (let i = 1; i <= 7; i++) {
+                const trait = document.getElementById('trait' + i);
+                const tech = document.getElementById('tech' + i);
+                
+                if (trait && tech) {
+                    const line = document.createElement('div');
+                    line.className = 'connection-line';
+                    
+                    const traitRect = trait.getBoundingClientRect();
+                    const techRect = tech.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    
+                    const startX = traitRect.right - containerRect.left;
+                    const startY = traitRect.top + traitRect.height / 2 - containerRect.top;
+                    const endX = techRect.left - containerRect.left;
+                    const endY = techRect.top + techRect.height / 2 - containerRect.top;
+                    
+                    const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                    const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+                    
+                    line.style.width = length + 'px';
+                    line.style.left = startX + 'px';
+                    line.style.top = startY + 'px';
+                    line.style.transform = `rotate(${angle}deg)`;
+                    
+                    container.appendChild(line);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
