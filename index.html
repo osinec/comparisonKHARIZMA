@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ораторское мастерство | Связанная система развития</title>
+    <title>Ораторское мастерство</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,9 +13,7 @@
             --blue-dark: #1a3e99;
             --blue-light: #e0eaff;
             --white: #ffffff;
-            --shadow-light: 0 4px 12px rgba(41, 98, 255, 0.12);
-            --shadow-medium: 0 8px 25px rgba(41, 98, 255, 0.18);
-            --shadow-hover: 0 12px 35px rgba(41, 98, 255, 0.25);
+            --shadow: 0 4px 12px rgba(41, 98, 255, 0.15);
             --glow: 0 0 20px rgba(41, 98, 255, 0.15);
         }
 
@@ -29,34 +27,31 @@
         body {
             background: linear-gradient(135deg, var(--white), var(--blue-light));
             color: var(--blue-dark);
-            line-height: 1.7;
-            padding: 10px;
+            line-height: 1.6;
+            padding: 12px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-attachment: fixed;
         }
 
         .container {
-            max-width: 90%;
             width: 100%;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 10px;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: var(--white);
-            color: var(--blue-primary);
-            border: 4px solid var(--blue-primary);
-            border-radius: 24px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-medium);
+            border: 3px solid var(--blue-primary);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
 
         header::before {
@@ -77,165 +72,147 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(41, 98, 255, 0.1);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.2;
             color: var(--blue-dark);
+            text-shadow: 0 2px 4px rgba(41, 98, 255, 0.1);
         }
 
         .subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            opacity: 0.9;
-            letter-spacing: 1.5px;
             color: var(--blue-primary);
+            opacity: 0.9;
         }
 
         .pair {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 25px;
+            margin-bottom: 30px;
+            width: 100%;
         }
 
         .triple-divider {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 50px 0;
+            margin: 35px 0;
         }
 
         .divider-line {
-            height: 3px;
-            width: 60%;
-            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
-            margin: 8px 0;
-            border-radius: 2px;
-            box-shadow: 0 2px 6px rgba(41, 98, 255, 0.1);
-        }
-
-        .divider-line:nth-child(2) {
+            height: 2px;
             width: 70%;
-        }
-
-        .divider-line:nth-child(3) {
-            width: 80%;
+            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+            margin: 4px 0;
+            border-radius: 1px;
+            box-shadow: 0 2px 6px rgba(41, 98, 255, 0.1);
         }
 
         .item {
             background: var(--white);
             border: 3px solid var(--blue-primary);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: var(--shadow-light);
+            border-radius: 18px;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
             position: relative;
-            transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-            overflow: hidden;
-            max-width: 100%;
+            width: 100%;
+            transition: all 0.3s ease;
         }
 
         .item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--blue-dark);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow) inset 0 0 0 2px var(--blue-primary);
         }
 
         .item-number {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 15px;
+            left: 15px;
             background: var(--blue-primary);
             color: var(--white);
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 6px 15px rgba(26, 62, 153, 0.4);
+            font-weight: 700;
+            font-size: 1rem;
             border: 2px solid var(--white);
-            z-index: 10;
+            box-shadow: 0 6px 15px rgba(26, 62, 153, 0.4);
         }
 
         .item h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-top: 15px;
-            margin-bottom: 25px;
+            margin: 15px 0 20px;
             text-align: center;
             color: var(--blue-dark);
-            text-shadow: 0 2px 3px rgba(41, 98, 255, 0.05);
+            background: linear-gradient(90deg, var(--blue-primary), var(--blue-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(41, 98, 255, 0.1);
         }
 
         .item h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             color: var(--blue-primary);
         }
 
         .emoji {
-            margin-right: 14px;
-            font-size: 1.4em;
+            margin-right: 12px;
+            font-size: 1.3em;
             filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
         }
 
         .item p {
             color: var(--blue-dark);
-            margin-bottom: 20px;
-            font-weight: 500;
+            margin-bottom: 18px;
+            font-size: 1.05rem;
             opacity: 0.9;
         }
 
         .traits-list {
             list-style-type: none;
-            margin-bottom: 25px;
-            padding-left: 10px;
+            margin-bottom: 20px;
+            padding-left: 5px;
         }
 
         .traits-list li {
-            padding: 10px 0;
-            padding-left: 30px;
+            padding: 8px 0;
+            padding-left: 25px;
             position: relative;
             color: var(--blue-dark);
             opacity: 0.85;
-            font-weight: 500;
-            border-bottom: 1px dashed rgba(41, 98, 255, 0.1);
-        }
-
-        .traits-list li:last-child {
-            border-bottom: none;
+            font-size: 1.05rem;
         }
 
         .traits-list li:before {
             content: "•";
             color: var(--blue-primary);
             position: absolute;
-            left: 10px;
-            font-weight: bold;
-            font-size: 1.4em;
-            text-shadow: 0 2px 3px rgba(41, 98, 255, 0.1);
+            left: 8px;
+            font-size: 1.3em;
         }
 
         .exercise {
-            padding: 25px;
-            margin-top: 20px;
-            border-radius: 14px;
+            padding: 20px 15px;
+            margin-top: 15px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--blue-light), rgba(224, 234, 255, 0.3));
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(41, 98, 255, 0.1);
         }
 
         .exercise::before {
@@ -253,7 +230,7 @@
 
         .exercise h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--blue-dark);
@@ -263,15 +240,16 @@
 
         .exercise ul {
             padding-left: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
 
         .exercise li {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             color: var(--blue-dark);
             opacity: 0.9;
+            font-size: 1.05rem;
             position: relative;
             z-index: 2;
         }
@@ -280,75 +258,38 @@
             font-size: 0.95rem;
             display: block;
             margin-top: 8px;
-            padding-left: 15px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 8px;
             border-left: 3px solid var(--blue-primary);
             font-style: italic;
             opacity: 0.8;
             position: relative;
             z-index: 2;
-            background: rgba(255,255,255,0.4);
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(41, 98, 255, 0.05);
         }
 
         footer {
             text-align: center;
-            margin-top: 80px;
-            padding: 30px 15px;
+            margin-top: 50px;
+            padding: 25px 15px;
             color: var(--blue-dark);
             font-size: 1.1rem;
-            opacity: 0.85;
             font-family: 'Playfair Display', serif;
-            letter-spacing: 0.8px;
-            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow-light);
-            max-width: 600px;
+            opacity: 0.85;
             width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
+            border: 2px solid var(--blue-primary);
+            box-shadow: var(--shadow);
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-            header {
-                padding: 30px 15px;
-                border-radius: 20px;
-                margin-bottom: 25px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            .item {
-                padding: 20px;
-                border-radius: 20px;
-            }
-            .item h2 {
-                font-size: 1.6rem;
-            }
-            .item h3 {
-                font-size: 1.4rem;
-            }
-            .item-number {
-                bottom: 15px;
-                left: 15px;
-                width: 28px;
-                height: 28px;
-                font-size: 1rem;
-            }
-            .triple-divider {
-                margin: 40px 0;
-            }
-            footer {
-                margin-top: 60px;
-                padding: 20px;
-                font-size: 1rem;
-            }
+        @media (max-width: 375px) {
+            h1 { font-size: 2rem; }
+            .item h2 { font-size: 1.5rem; }
+            .item h3 { font-size: 1.3rem; }
+            .item p, .traits-list li, .exercise li { font-size: 1rem; }
+            .exercise h4 { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -361,7 +302,6 @@
 
         <!-- Пара 1 -->
         <div class="pair">
-            <!-- Природные данные 1 -->
             <div class="item">
                 <div class="item-number">1</div>
                 <h2>Природные данные</h2>
@@ -374,7 +314,6 @@
                     <li>Активное слушание</li>
                 </ul>
             </div>
-            <!-- Упражнения 1 -->
             <div class="item">
                 <div class="item-number">1</div>
                 <h2>Упражнения на отработку</h2>
@@ -383,26 +322,25 @@
                     <ul>
                         <li>
                             <strong>Правило 3-х контактов</strong>
-                            <span class="exercise-details">Ежедневно вести 3 осмысленные беседы с незнакомыми людьми (например, кассир, коллега, сосед). Цель — задать минимум 2 вопроса и найти общую тему.</span>
+                            <span class="exercise-details">Ежедневно вести 3 осмысленные беседы с незнакомыми людьми.</span>
                         </li>
                         <li>
                             <strong>Активное слушание</strong>
-                            <span class="exercise-details">В каждой беседе задавать минимум 3 уточняющих вопроса ("Как ты это сделал?", "Почему ты так думаешь?", "Что ты имеешь в виду под...?"). Записывать ключевые моменты.</span>
+                            <span class="exercise-details">В каждой беседе задавать минимум 3 уточняющих вопроса.</span>
                         </li>
                         <li>
                             <strong>Игра "Интервью"</strong>
-                            <span class="exercise-details">Выбрать человека и провести с ним 10-минутное интервью на тему, в которой вы оба не являетесь экспертами. Задавать открытые вопросы.</span>
+                            <span class="exercise-details">Провести 10-минутное интервью на незнакомую тему.</span>
                         </li>
                         <li>
                             <strong>Наблюдение за "сигналами"</strong>
-                            <span class="exercise-details">В следующем разговоре обратить внимание на 5 невербальных сигналов собеседника (мимика, жесты, тон голоса). Записать свои наблюдения и интерпретацию.</span>
+                            <span class="exercise-details">Записать 5 невербальных сигналов собеседника.</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Разделитель 1 -->
         <div class="triple-divider">
             <div class="divider-line"></div>
             <div class="divider-line"></div>
@@ -411,7 +349,6 @@
 
         <!-- Пара 2 -->
         <div class="pair">
-            <!-- Природные данные 2 -->
             <div class="item">
                 <div class="item-number">2</div>
                 <h2>Природные данные</h2>
@@ -424,7 +361,6 @@
                     <li>Чувствование аудитории</li>
                 </ul>
             </div>
-            <!-- Упражнения 2 -->
             <div class="item">
                 <div class="item-number">2</div>
                 <h2>Упражнения на отработку</h2>
@@ -433,26 +369,25 @@
                     <ul>
                         <li>
                             <strong>"Зеркало эмоций"</strong>
-                            <span class="exercise-details">Последовательно отыграй лицом 5 эмоций: радость, грусть, удивление, гнев, интерес. В случайном порядке.</span>
+                            <span class="exercise-details">Отыграй 5 эмоций лицом в случайном порядке.</span>
                         </li>
                         <li>
                             <strong>Анализ жестов</strong>
-                            <span class="exercise-details">Записать на видео 2-минутное выступление на любую тему. Просмотреть запись, проанализировать жесты и мимику. Выписать хорошие и отвлекающие жеста.</span>
+                            <span class="exercise-details">Запиши видео и проанализируй свою мимику.</span>
                         </li>
                         <li>
                             <strong>"Эмоциональный словарь"</strong>
-                            <span class="exercise-details">Описать любых 3 простых предмета (например: стол, дерево, кофе) с разной эмоциональной окраской (позитивной, нейтральной, негативной). Например: "Стол - мой верный друг" vs "Стол - просто кусок дерева".</span>
+                            <span class="exercise-details">Опиши предметы с разной эмоциональной окраской.</span>
                         </li>
                         <li>
                             <strong>Чтение эмоций по глазам</strong>
-                            <span class="exercise-details">Посмотреть 5 коротких видеороликов (не более 10 секунд) с людьми, говорящими на иностранном языке (без звука). Попытаться определить эмоцию. Затем включить звук и проверить себя.</span>
+                            <span class="exercise-details">Определи эмоцию по видео без звука.</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Разделитель 2 -->
         <div class="triple-divider">
             <div class="divider-line"></div>
             <div class="divider-line"></div>
@@ -461,7 +396,6 @@
 
         <!-- Пара 3 -->
         <div class="pair">
-            <!-- Природные данные 3 -->
             <div class="item">
                 <div class="item-number">3</div>
                 <h2>Природные данные</h2>
@@ -474,7 +408,6 @@
                     <li>Быстрое восстановление</li>
                 </ul>
             </div>
-            <!-- Упражнения 3 -->
             <div class="item">
                 <div class="item-number">3</div>
                 <h2>Упражнения на отработку</h2>
@@ -483,26 +416,25 @@
                     <ul>
                         <li>
                             <strong>"Минута смелости"</strong>
-                            <span class="exercise-details">Ежедневно совершать одно действие, которое немного выходит из зоны комфорта (например, попросить скидку, спросить дорогу, сказать комплимент незнакомцу). Записывать результат.</span>
+                            <span class="exercise-details">Сделай одно действие вне зоны комфорта.</span>
                         </li>
                         <li>
                             <strong>Метод "5 почему"</strong>
-                            <span class="exercise-details">Определить одну конкретную ситуацию, где вы чувствуете страх или неуверенность. Задать себе вопрос "Почему?" 5 раз подряд, чтобы добраться до корня страха.</span>
+                            <span class="exercise-details">Найди корень своего страха через 5 вопросов.</span>
                         </li>
                         <li>
                             <strong>Игра "Провал"</strong>
-                            <span class="exercise-details">Специально допустить 2 небольшие ошибки в течение дня (например, назвать неправильное имя, забыть слово) и спокойно признать их. Обратить внимание на свою реакцию.</span>
+                            <span class="exercise-details">Специально допусти 2 ошибки и спокойно признай их.</span>
                         </li>
                         <li>
                             <strong>Поза силы</strong>
-                            <span class="exercise-details">Перед важной встречей или выступлением принять "позу силы" (Superman pose) на 2 минуты: стоя прямо, руки в боки или над головой. Оценить изменение настроения.</span>
+                            <span class="exercise-details">Прими позу супергероя на 2 минуты перед выступлением.</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Разделитель 3 -->
         <div class="triple-divider">
             <div class="divider-line"></div>
             <div class="divider-line"></div>
@@ -511,7 +443,6 @@
 
         <!-- Пара 4 -->
         <div class="pair">
-            <!-- Природные данные 4 -->
             <div class="item">
                 <div class="item-number">4</div>
                 <h2>Природные данные</h2>
@@ -524,7 +455,6 @@
                     <li>Выносливость связок</li>
                 </ul>
             </div>
-            <!-- Упражнения 4 -->
             <div class="item">
                 <div class="item-number">4</div>
                 <h2>Упражнения на отработку</h2>
@@ -533,30 +463,25 @@
                     <ul>
                         <li>
                             <strong>"Дыхание спикера"</strong>
-                            <span class="exercise-details">Ежедневно 10 вдохов через нос, чтобы надувался живот. На выдохе мягкое "Хаааа..."</span>
+                            <span class="exercise-details">10 вдохов через нос, выдох с "Хаааа".</span>
                         </li>
                         <li>
                             <strong>Марафон дикции</strong>
-                            <span class="exercise-details">Выбрать любой текст. 2 минуты читать с карандашом во рту. 2 минуты без карандаша, выговариявая каждую букву</span>
+                            <span class="exercise-details">2 мин с карандашом во рту, 2 мин без.</span>
                         </li>
                         <li>
                             <strong>"Радиоведущий"</strong>
-                            <span class="exercise-details">Выбрать интересную статью. Прочитать. И Пересказать её вслух в течение 10 минут(можно подсматривать), стараясь использовать разную интонацию, паузы и эмоциональные окраски голоса. Записать и проанализировать.</span>
-                        </li>
-                        <li>
-                            <strong>Упражнения на артикуляцию</strong>
-                            <span class="exercise-details">Выполнять ежедневно: "Рычаяние" (просто рычи вслух "Рррр.."), "Уточка" (сильно-сильно улыбнись на 10 сек затем расслабь,сделав губы уточкой).</span>
+                            <span class="exercise-details">Перескажи статью с разной интонацией. Запиши.</span>
                         </li>
                         <li>
                             <strong>Работа с тембром</strong>
-                            <span class="exercise-details"> Выбрать любой текст. Читать по строчно с разным тембром: как дедушка (низкий, медленный), как ребенок (высокий, игривый), как ведущий новостей (нейтральный, четкий).</span>
+                            <span class="exercise-details">Прочитай текст голосами: дедушки, ребенка, диктора.</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Разделитель 4 -->
         <div class="triple-divider">
             <div class="divider-line"></div>
             <div class="divider-line"></div>
@@ -565,7 +490,6 @@
 
         <!-- Пара 5 -->
         <div class="pair">
-            <!-- Природные данные 5 -->
             <div class="item">
                 <div class="item-number">5</div>
                 <h2>Природные данные</h2>
@@ -578,7 +502,6 @@
                     <li>Гибкость мышления</li>
                 </ul>
             </div>
-            <!-- Упражнения 5 -->
             <div class="item">
                 <div class="item-number">5</div>
                 <h2>Упражнения на отработку</h2>
@@ -587,23 +510,19 @@
                     <ul>
                         <li>
                             <strong>Что общего?</strong>
-                            <span class="exercise-details"> Выбери 2 любых предмета. Напротяжение 2 минут безостановочно рассказываю, что есть общего у этих предметов. (Нет общего? Выдумай!)</span>
+                            <span class="exercise-details">2 минуты без остановки — что общего у 2 предметов?</span>
                         </li>
                         <li>
                             <strong>"Безумные связи"</strong>
-                            <span class="exercise-details">Выбери любой предмет. Придумай минимум 10 способов его использования, кроме тех, что тебе известны. (Например: Кирпич (не обязательно красный, не обязательно из глины, не обязательно тяжелый) Подставка под дверьЮ палетка из кирпича, кирпичики для детского замка..)".</span>
+                            <span class="exercise-details">10 необычных способов использования одного предмета.</span>
                         </li>
                         <li>
                             <strong>Сторителлинг</strong>
-                            <span class="exercise-details">Взять 3 случайных слова (например, "луна", "ключ", "кот"). Написать 3-минутную связанную историю, включающую все три слова. Затем рассказать эту историю вслух.</span>
-                        </li>
-                        <li>
-                            <strong>Мозговой штурм с ограничениями</strong>
-                            <span class="exercise-details">Выбрать проблему (например, "Как сделать урок интереснее?"). Придумать 10 идей, но с ограничением: каждая идея должна включать слово "игра".</span>
+                            <span class="exercise-details">Свяжи 3 случайных слова в историю за 3 минуты.</span>
                         </li>
                         <li>
                             <strong>Импровизация на тему</strong>
-                            <span class="exercise-details">Выбрать случайную фразу (например, "Моя бабушка была астронавтом"). Импровизировать 2 минуты на эту тему, не останавливаясь. Записать и прослушать.</span>
+                            <span class="exercise-details">2 минуты импровизации на абсурдную тему. Запиши.</span>
                         </li>
                     </ul>
                 </div>
