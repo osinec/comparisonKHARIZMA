@@ -14,7 +14,7 @@
             --blue-light: #e0eaff;
             --white: #ffffff;
             --shadow: 0 4px 12px rgba(41, 98, 255, 0.15);
-            --glow: 0 0 20px rgba(41, 98, 255, 0.15);
+            --glow: 0 0 20px rgba(41, 98, 255, 0.2);
         }
 
         * {
@@ -25,7 +25,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--white), var(--blue-light));
+            background: linear-gradient(135deg, var(--blue-light), var(--white));
             color: var(--blue-dark);
             line-height: 1.6;
             padding: 12px;
@@ -44,8 +44,8 @@
         header {
             text-align: center;
             padding: 30px 20px;
-            background: var(--white);
-            border: 3px solid var(--blue-primary);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark));
+            color: var(--white);
             border-radius: 20px;
             margin-bottom: 25px;
             box-shadow: var(--shadow);
@@ -61,7 +61,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+            background: linear-gradient(90deg, transparent, var(--white), transparent);
             animation: shimmer 3s infinite;
         }
 
@@ -72,19 +72,19 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             font-weight: 800;
             margin-bottom: 10px;
             line-height: 1.2;
-            color: var(--blue-dark);
-            text-shadow: 0 2px 4px rgba(41, 98, 255, 0.1);
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             font-weight: 500;
-            color: var(--blue-primary);
+            color: var(--white);
             opacity: 0.9;
         }
 
@@ -113,27 +113,29 @@
         }
 
         .item {
-            background: var(--white);
-            border: 3px solid var(--blue-primary);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark));
+            border: 2px solid var(--blue-primary);
             border-radius: 18px;
             padding: 25px 20px;
             box-shadow: var(--shadow);
             position: relative;
             width: 100%;
             transition: all 0.3s ease;
+            color: var(--white);
         }
 
         .item:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow) inset 0 0 0 2px var(--blue-primary);
+            box-shadow: var(--glow);
+            border-color: var(--white);
         }
 
         .item-number {
             position: absolute;
             bottom: 15px;
             left: 15px;
-            background: var(--blue-primary);
-            color: var(--white);
+            background: var(--white);
+            color: var(--blue-primary);
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -143,43 +145,40 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1rem;
-            border: 2px solid var(--white);
+            border: 2px solid var(--blue-primary);
             box-shadow: 0 6px 15px rgba(26, 62, 153, 0.4);
         }
 
         .item h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 4vw, 1.6rem);
             font-weight: 700;
             margin: 15px 0 20px;
             text-align: center;
-            color: var(--blue-dark);
-            background: linear-gradient(90deg, var(--blue-primary), var(--blue-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(41, 98, 255, 0.1);
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .item h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 3.5vw, 1.4rem);
             font-weight: 600;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            color: var(--blue-primary);
+            color: var(--white);
         }
 
         .emoji {
             margin-right: 12px;
             font-size: 1.3em;
-            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
         }
 
         .item p {
-            color: var(--blue-dark);
+            color: var(--white);
             margin-bottom: 18px;
-            font-size: 1.05rem;
+            font-size: clamp(1rem, 3vw, 1.05rem);
             opacity: 0.9;
         }
 
@@ -193,14 +192,14 @@
             padding: 8px 0;
             padding-left: 25px;
             position: relative;
-            color: var(--blue-dark);
+            color: var(--white);
             opacity: 0.85;
-            font-size: 1.05rem;
+            font-size: clamp(1rem, 3vw, 1.05rem);
         }
 
         .traits-list li:before {
             content: "•";
-            color: var(--blue-primary);
+            color: var(--white);
             position: absolute;
             left: 8px;
             font-size: 1.3em;
@@ -210,7 +209,8 @@
             padding: 20px 15px;
             margin-top: 15px;
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--blue-light), rgba(224, 234, 255, 0.3));
+            background: rgba(255,255,255,0.1);
+            border-left: 3px solid var(--white);
             position: relative;
             overflow: hidden;
         }
@@ -222,7 +222,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             animation: shimmer 2.5s infinite;
             z-index: 1;
             opacity: 0.6;
@@ -230,10 +230,10 @@
 
         .exercise h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 3vw, 1.25rem);
             font-weight: 700;
             margin-bottom: 12px;
-            color: var(--blue-dark);
+            color: var(--white);
             position: relative;
             z-index: 2;
         }
@@ -247,21 +247,21 @@
 
         .exercise li {
             margin-bottom: 18px;
-            color: var(--blue-dark);
+            color: var(--white);
             opacity: 0.9;
-            font-size: 1.05rem;
+            font-size: clamp(1rem, 3vw, 1.05rem);
             position: relative;
             z-index: 2;
         }
 
         .exercise-details {
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
             display: block;
             margin-top: 8px;
             padding: 8px 12px;
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.15);
             border-radius: 8px;
-            border-left: 3px solid var(--blue-primary);
+            border-left: 3px solid var(--white);
             font-style: italic;
             opacity: 0.8;
             position: relative;
@@ -272,24 +272,40 @@
             text-align: center;
             margin-top: 50px;
             padding: 25px 15px;
-            color: var(--blue-dark);
-            font-size: 1.1rem;
+            color: var(--white);
+            font-size: clamp(1rem, 3vw, 1.1rem);
             font-family: 'Playfair Display', serif;
             opacity: 0.85;
             width: 100%;
             max-width: 500px;
             border-radius: 16px;
-            background: linear-gradient(to right, transparent, var(--blue-light), transparent);
-            border: 2px solid var(--blue-primary);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark));
+            border: 2px solid var(--white);
             box-shadow: var(--shadow);
         }
 
-        @media (max-width: 375px) {
-            h1 { font-size: 2rem; }
-            .item h2 { font-size: 1.5rem; }
-            .item h3 { font-size: 1.3rem; }
-            .item p, .traits-list li, .exercise li { font-size: 1rem; }
-            .exercise h4 { font-size: 1.2rem; }
+        @media (min-width: 768px) {
+            .pair {
+                flex-direction: row;
+                gap: 30px;
+            }
+            .item {
+                flex: 1;
+                margin: 0;
+            }
+            .item-number {
+                bottom: 15px;
+                left: 15px;
+            }
+            .exercise {
+                padding: 25px 20px;
+            }
+            .exercise h4 {
+                font-size: 1.3rem;
+            }
+            .exercise li {
+                font-size: 1.05rem;
+            }
         }
     </style>
 </head>
